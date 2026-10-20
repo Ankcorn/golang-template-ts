@@ -62,12 +62,18 @@ Fixture extraction temporarily adds test-only export files under `GOROOT/src/tex
 
 ## Compatibility boundaries
 
-The current evidence is **872 passing adapted tests and 1,344 passing differential cases**, not unrestricted Go equivalence. In particular:
+The current evidence is **872 passing adapted tests and 1,344 passing differential cases**, not unrestricted Go equivalence. The main template language is implemented, but the following gaps remain:
 
-* Go reflection, pointer identity, struct metadata, function signatures, and channels have no exact native JavaScript equivalents. Explicit typed wrappers are required for the distinctions exercised by the Go tests. Channel/iterator fixture values currently represent synchronous sequences rather than live Go channels or goroutines.
-* `printf` implements the formatting exercised by these suites, but is not a complete port of the separate Go `fmt` package. Arbitrary formatting flags, reflection formatting, custom `fmt.Formatter`, and all combinations of argument indexing are not certified.
-* Template recursion is currently limited to 1,000 calls rather than Go's 100,000 on non-Wasm platforms. Extremely deeply nested expressions may also encounter JavaScript stack limits.
-* JavaScript strings represent Unicode text. Arbitrary invalid UTF-8 Go strings and byte slices that split a UTF-8 sequence do not retain identical byte-level behavior.
-* Filesystem/glob operations use Node's filesystem APIs; OS-specific behavior and the complete `io/fs` interface are not reproduced.
+| Area | Current limitation | Concrete example or consequence |
+| --- | --- | --- |
+| Formatting | `printf` is not a complete implementation of Go's `fmt` behavior. | `{{printf "%g" 1000000.0}}` produces `1000000`; Go produces `1e+06`. Other formatting flags, custom `fmt.Formatter` implementations, and combinations of argument indexing are not fully supported or verified. |
+| 64-bit function arguments | Typed callbacks convert integer arguments to JavaScript numbers by default, which can lose precision. | An identity callback registered with `func(x => x, ['int'])` turns `9007199254740993` into `9007199254740992`. Use `{ raw: true }` to retain typed argument values and their `bigint` payloads. |
+| Filesystem parsing | Standalone `ParseFS` does not select the first file as its returned execution template. The in-memory filesystem glob matcher lacks character classes. | `ParseFS({ 'hello.tmpl': 'hello' }, 'hello.tmpl').Execute()` throws an incomplete-template error; `ExecuteTemplate('hello.tmpl')` works. `[ab].tmpl` does not match `a.tmpl`. Node filesystem behavior also does not reproduce the complete Go `io/fs` interface. |
+| Channels and iterators | Currently represented as stored synchronous sequences. | Live channels, blocking receives, goroutines, and lazy generator execution are not implemented. |
+| Go type semantics | Reflection, pointer identity, method sets, and type checking are only partially reproduced through explicit typed wrappers. | Ordinary JavaScript values and callbacks do not carry Go's type metadata; wrappers cover the distinctions exercised by the adapted tests, not every Go reflection behavior. |
+| Byte strings | JavaScript strings represent Unicode text rather than arbitrary Go string bytes. | Invalid UTF-8 and byte slices that split a multibyte character can produce different results from Go. |
+| Recursion | Execution is limited to roughly 1,000 nested template calls, versus Go's 100,000 on non-Wasm platforms. | Deep recursive templates can fail earlier; deeply nested expressions may also encounter JavaScript stack limits. |
 
-These remaining boundaries mean this release **does not yet satisfy a literal 100% feature-parity guarantee**. The test machinery is intended to make further compatibility work measurable without hiding omissions or skipped test families.
+The nonstandard `join` and `re_replace` extensions offered by `@ctrl/golang-template` are not built in. They can be registered through `Funcs`; neither is part of Go's `text/template`.
+
+The passing test counts do not cover every possible input: the formatting, integer-precision, and `ParseFS` examples above are confirmed gaps outside the current passing suites. This release **does not yet satisfy a literal 100% feature-parity guarantee**.
