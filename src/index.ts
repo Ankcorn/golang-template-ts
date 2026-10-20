@@ -1,5 +1,6 @@
 import { readFileSync, globSync } from "node:fs";
-import { basename } from "node:path";
+import { basename, posix } from "node:path";
+import { fsNames, type TemplateFS } from "./fs.js";
 import {
   parse,
   isEmpty,
@@ -278,43 +279,8 @@ export class Template {
     if (!files.length) throw Error(`pattern matches no files: ${pattern}`);
     return this.ParseFiles(...files);
   }
-  ParseFS(
-    fs:
-      | Record<string, string>
-      | { readFile(name: string): string; glob(pattern: string): string[] },
-    ...patterns: string[]
-  ): this {
-    for (const pattern of patterns) {
-      let names: string[];
-      if ("glob" in fs && typeof fs.glob === "function")
-        names = fs.glob(pattern);
-      else {
-        const re = new RegExp(
-          "^" +
-            pattern
-              .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-              .replaceAll("*", "[^/]*")
-              .replaceAll("?", "[^/]") +
-            "$",
-        );
-        names = Object.keys(fs)
-          .filter((n) => re.test(n))
-          .sort();
-      }
-      if (!names.length) throw Error(`pattern matches no files: ${pattern}`);
-      for (const name of names) {
-        const text =
-          "readFile" in fs && typeof fs.readFile === "function"
-            ? fs.readFile(name)
-            : (fs as Record<string, string>)[name];
-        const base = basename(name);
-        (base === this.name
-          ? this
-          : (this.Lookup(base) ?? this.New(base))
-        ).Parse(text);
-      }
-    }
-    return this;
+  ParseFS(fs: TemplateFS, ...patterns: string[]): this {
+    return parseFSNames(this, fs, fsNames(fs, patterns));
   }
   private run(s: State): void {
     if (!this.Tree)
@@ -709,7 +675,27 @@ export function ParseFS(
   fs: Parameters<Template["ParseFS"]>[0],
   ...patterns: string[]
 ): Template {
-  return New("").ParseFS(fs, ...patterns);
+  const names = fsNames(fs, patterns);
+  return parseFSNames(New(posix.basename(names[0])), fs, names);
 }
 export const render = (source: string, data?: unknown, funcs: FuncMap = {}) =>
   New("template").Funcs(funcs).Parse(source).Execute(data);
+
+function parseFSNames<T extends Template>(
+  template: T,
+  fs: TemplateFS,
+  names: string[],
+): T {
+  for (const name of names) {
+    const text =
+      "readFile" in fs && typeof fs.readFile === "function"
+        ? fs.readFile(name)
+        : (fs as Record<string, string>)[name];
+    const base = posix.basename(name);
+    (base === template.Name()
+      ? template
+      : (template.Lookup(base) ?? template.New(base))
+    ).Parse(text);
+  }
+  return template;
+}
