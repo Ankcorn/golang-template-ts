@@ -1,0 +1,3152 @@
+[
+  {
+    "data": null,
+    "input": "",
+    "name": "empty",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": null,
+    "input": "some text",
+    "name": "text",
+    "ok": true,
+    "output": "some text"
+  },
+  {
+    "data": null,
+    "input": "{{nil}}",
+    "name": "nil action",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 3}}",
+    "name": "ideal int",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 1.0}}",
+    "name": "ideal float",
+    "ok": true,
+    "output": "float64"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 1e1}}",
+    "name": "ideal exp float",
+    "ok": true,
+    "output": "float64"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 1i}}",
+    "name": "ideal complex",
+    "ok": true,
+    "output": "complex128"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 0x7fffffffffffffff}}",
+    "name": "ideal int",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{typeOf 0x8000000000000000}}",
+    "name": "ideal too big",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{nil}}",
+    "name": "ideal nil without type",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.X}}-",
+    "name": ".X",
+    "ok": true,
+    "output": "-x-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.U.V}}-",
+    "name": ".U.V",
+    "ok": true,
+    "output": "-v-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.unexported}}",
+    "name": ".unexported",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MSI.one}}",
+    "name": "map .one",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MSI.two}}",
+    "name": "map .two",
+    "ok": true,
+    "output": "2"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MSI.NO}}",
+    "name": "map .NO",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MXI.one}}",
+    "name": "map .one interface",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MSI.one 1}}",
+    "name": "map .WRONG args",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MII.one}}",
+    "name": "map .WRONG type",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "6f115b1f4d0c5247"
+    },
+    "input": "<{{.}}>",
+    "name": "dot int",
+    "ok": true,
+    "output": "<13>"
+  },
+  {
+    "data": {
+      "$fixture": "fa2cc06be3d57454"
+    },
+    "input": "<{{.}}>",
+    "name": "dot uint",
+    "ok": true,
+    "output": "<14>"
+  },
+  {
+    "data": {
+      "$fixture": "3951171509bd7efe"
+    },
+    "input": "<{{.}}>",
+    "name": "dot float",
+    "ok": true,
+    "output": "<15.1>"
+  },
+  {
+    "data": {
+      "$fixture": "d1ad017d987ffd6a"
+    },
+    "input": "<{{.}}>",
+    "name": "dot bool",
+    "ok": true,
+    "output": "<true>"
+  },
+  {
+    "data": {
+      "$fixture": "591ba1f565eacc13"
+    },
+    "input": "<{{.}}>",
+    "name": "dot complex",
+    "ok": true,
+    "output": "<(16.2-17i)>"
+  },
+  {
+    "data": {
+      "$fixture": "ba7c5b5b2722589c"
+    },
+    "input": "<{{.}}>",
+    "name": "dot string",
+    "ok": true,
+    "output": "<hello>"
+  },
+  {
+    "data": {
+      "$fixture": "44c3a90c2b251589"
+    },
+    "input": "<{{.}}>",
+    "name": "dot slice",
+    "ok": true,
+    "output": "<[-1 -2 -3]>"
+  },
+  {
+    "data": {
+      "$fixture": "0efc041e229a930f"
+    },
+    "input": "<{{.}}>",
+    "name": "dot map",
+    "ok": true,
+    "output": "<map[two:22]>"
+  },
+  {
+    "data": {
+      "$fixture": "cdbbdd975d2ed603"
+    },
+    "input": "<{{.}}>",
+    "name": "dot struct",
+    "ok": true,
+    "output": "<{7 seven}>"
+  },
+  {
+    "data": {
+      "$fixture": "5d3108673f66e4be"
+    },
+    "input": "{{$}}",
+    "name": "$ int",
+    "ok": true,
+    "output": "123"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$.I}}",
+    "name": "$.I",
+    "ok": true,
+    "output": "17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$.U.V}}",
+    "name": "$.U.V",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := $.U.V}}{{$x}}",
+    "name": "declare in action",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := 2}}{{$x = 3}}{{$x}}",
+    "name": "simple assignment",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := 2}}{{if true}}{{$x = 3}}{{end}}{{$x}}",
+    "name": "nested assignment",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := 1}}{{if true}}{{$x := 2}}{{if true}}{{$x = 3}}{{end}}{{end}}{{$x}}",
+    "name": "nested assignment changes the last declaration",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.V0}}-",
+    "name": "V{6666}.String()",
+    "ok": true,
+    "output": "-<6666>-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.V1}}-",
+    "name": "&V{7777}.String()",
+    "ok": true,
+    "output": "-<7777>-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.V2}}-",
+    "name": "(*V)(nil).String()",
+    "ok": true,
+    "output": "-nilV-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.W0}}-",
+    "name": "W{888}.Error()",
+    "ok": true,
+    "output": "-[888]-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.W1}}-",
+    "name": "&W{999}.Error()",
+    "ok": true,
+    "output": "-[999]-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.W2}}-",
+    "name": "(*W)(nil).Error()",
+    "ok": true,
+    "output": "-nilW-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.PI}}",
+    "name": "*int",
+    "ok": true,
+    "output": "23"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.PS}}",
+    "name": "*string",
+    "ok": true,
+    "output": "a string"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.PSI}}",
+    "name": "*[]int",
+    "ok": true,
+    "output": "[21 22 23]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .PSI 1}}",
+    "name": "*[]int[1]",
+    "ok": true,
+    "output": "22"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.NIL}}",
+    "name": "NIL",
+    "ok": true,
+    "output": "<nil>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty0}}",
+    "name": "empty nil",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty1}}",
+    "name": "empty with int",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty2}}",
+    "name": "empty with string",
+    "ok": true,
+    "output": "empty2"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty3}}",
+    "name": "empty with slice",
+    "ok": true,
+    "output": "[7 8]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty4}}",
+    "name": "empty with struct",
+    "ok": true,
+    "output": "{UinEmpty}"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Empty4.V}}",
+    "name": "empty with struct, field",
+    "ok": true,
+    "output": "UinEmpty"
+  },
+  {
+    "data": null,
+    "input": "{{.foo}}",
+    "name": "field on interface",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": null,
+    "input": "{{(.).foo}}",
+    "name": "field on parenthesized interface",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": null,
+    "input": "{{1 2}}",
+    "name": "unparenthesized non-function",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": null,
+    "input": "{{(1) 2}}",
+    "name": "parenthesized non-function",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": null,
+    "input": "{{(1)}}",
+    "name": "parenthesized non-function with no args",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method0}}-",
+    "name": ".Method0",
+    "ok": true,
+    "output": "-M0-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method1 1234}}-",
+    "name": ".Method1(1234)",
+    "ok": true,
+    "output": "-1234-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method1 .I}}-",
+    "name": ".Method1(.I)",
+    "ok": true,
+    "output": "-17-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method2 3 .X}}-",
+    "name": ".Method2(3, .X)",
+    "ok": true,
+    "output": "-Method2: 3 x-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method2 .U16 `str`}}-",
+    "name": ".Method2(.U16, `str`)",
+    "ok": true,
+    "output": "-Method2: 16 str-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if $x := .X}}-{{.Method2 .U16 $x}}{{end}}-",
+    "name": ".Method2(.U16, $x)",
+    "ok": true,
+    "output": "-Method2: 16 x-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method3 nil}}-",
+    "name": ".Method3(nil constant)",
+    "ok": true,
+    "output": "-Method3: <nil>-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method3 .MXI.unset}}-",
+    "name": ".Method3(nil value)",
+    "ok": true,
+    "output": "-Method3: <nil>-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if $x := .}}-{{$x.Method2 .U16 $x.X}}{{end}}-",
+    "name": "method on var",
+    "ok": true,
+    "output": "-Method2: 16 x-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSIone}}{{if $.U.TrueFalse $.True}}{{$.U.TrueFalse $.True}}{{else}}WRONG{{end}}{{end}}",
+    "name": "method on chained var",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSIone}}{{if $.GetU.TrueFalse $.True}}{{$.U.TrueFalse $.True}}{{else}}WRONG{{end}}{{end}}",
+    "name": "chained method",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $x := .}}{{with .SI}}{{$.GetU.TrueFalse $.True}}{{end}}{{end}}",
+    "name": "chained method on variable",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .NilOKFunc .PI}}",
+    "name": ".NilOKFunc not nil",
+    "ok": true,
+    "output": "false"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .NilOKFunc nil}}",
+    "name": ".NilOKFunc nil",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "1ac3eb3d151eb5e0"
+    },
+    "input": "-{{range .}}{{.Method1 1234}}{{end}}-",
+    "name": "method on nil value from slice",
+    "ok": true,
+    "output": "-1234-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.NonEmptyInterfaceTypedNil.Method0}}",
+    "name": "method on typed nil interface value",
+    "ok": true,
+    "output": "M0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .BinaryFunc `1` `2`}}",
+    "name": ".BinaryFunc",
+    "ok": true,
+    "output": "[1=2]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFunc}}",
+    "name": ".VariadicFunc0",
+    "ok": true,
+    "output": "<>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFunc `he` `llo`}}",
+    "name": ".VariadicFunc2",
+    "ok": true,
+    "output": "<he+llo>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFuncInt 33 `he` `llo`}}",
+    "name": ".VariadicFuncInt",
+    "ok": true,
+    "output": "33=<he+llo>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{ if .BinaryFunc}}{{call .BinaryFunc `1` `2`}}{{end}}",
+    "name": "if .BinaryFunc call",
+    "ok": true,
+    "output": "[1=2]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{ if not .BinaryFunc}}{{call .BinaryFunc `1` `2`}}{{else}}No{{end}}",
+    "name": "if not .BinaryFunc call",
+    "ok": true,
+    "output": "No"
+  },
+  {
+    "data": {
+      "$fixture": "a9060bc6aa80a5f8"
+    },
+    "input": "{{stringer .S}}",
+    "name": "Interface Call",
+    "ok": true,
+    "output": "foozle"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .ErrFunc}}",
+    "name": ".ErrFunc",
+    "ok": true,
+    "output": "bla"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call nil}}",
+    "name": "call nil",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call}}",
+    "name": "empty call",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.ErrFunc | call}}",
+    "name": "empty call after pipe valid",
+    "ok": true,
+    "output": "bla"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{1 | call}}",
+    "name": "empty call after pipe invalid",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .BinaryFunc `1`}}",
+    "name": ".BinaryFuncTooFew",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .BinaryFunc `1` `2` `3`}}",
+    "name": ".BinaryFuncTooMany",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .BinaryFunc 1 3}}",
+    "name": ".BinaryFuncBad0",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .BinaryFunc `1` 3}}",
+    "name": ".BinaryFuncBad1",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFunc 3}}",
+    "name": ".VariadicFuncBad0",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFuncInt}}",
+    "name": ".VariadicFuncIntBad0",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFuncInt `x`}}",
+    "name": ".VariadicFuncIntBad`",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{call .VariadicFunc nil}}",
+    "name": ".VariadicFuncNilBad",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.Method0 | .Method2 .U16}}-",
+    "name": "pipeline",
+    "ok": true,
+    "output": "-Method2: 16 M0-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{call .VariadicFunc `llo` | call .VariadicFunc `he` }}-",
+    "name": "pipeline func",
+    "ok": true,
+    "output": "-<he+<llo>>-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{ .Empty0 | call .NilOKFunc }}",
+    "name": "nil pipeline",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{ call .NilOKFunc .Empty0 }}",
+    "name": "nil call arg",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{ .Empty0 | .VariadicFunc }}",
+    "name": "bad nil pipeline",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf `%d %d %d` (1) (2 | add 3) (add 4 (add 5 6))}}",
+    "name": "parens in pipeline",
+    "ok": true,
+    "output": "1 5 15"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{($).X}}",
+    "name": "parens: $ in paren",
+    "ok": true,
+    "output": "x"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{($.GetU).V}}",
+    "name": "parens: $.GetU in paren",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{($ | echo).X}}",
+    "name": "parens: $ in paren in pipe",
+    "ok": true,
+    "output": "x"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{(makemap \"up\" \"down\" \"left\" \"right\").left}}",
+    "name": "parens: spaces and args",
+    "ok": true,
+    "output": "right"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if true}}TRUE{{end}}",
+    "name": "if true",
+    "ok": true,
+    "output": "TRUE"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if false}}TRUE{{else}}FALSE{{end}}",
+    "name": "if false",
+    "ok": true,
+    "output": "FALSE"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if nil}}TRUE{{end}}",
+    "name": "if nil",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .NonEmptyInterfaceTypedNil}}TRUE{{ end }}",
+    "name": "if on typed nil interface value",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if 1}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 1",
+    "ok": true,
+    "output": "NON-ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if 0}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 0",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if 1.5}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 1.5",
+    "ok": true,
+    "output": "NON-ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .FloatZero}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 0.0",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if 1.5i}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 1.5i",
+    "ok": true,
+    "output": "NON-ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .ComplexZero}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if 0.0i",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .PI}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if nonNilPointer",
+    "ok": true,
+    "output": "NON-ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .NIL}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if nilPointer",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .UPI}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if UPI",
+    "ok": true,
+    "output": "NON-ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .EmptyUPI}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if EmptyUPI",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if ``}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if emptystring",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if `notempty`}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if string",
+    "ok": true,
+    "output": "NON-EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .SIEmpty}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if emptyslice",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .SI}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if slice",
+    "ok": true,
+    "output": "NON-EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .MSIEmpty}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if emptymap",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .MSI}}NON-EMPTY{{else}}EMPTY{{end}}",
+    "name": "if map",
+    "ok": true,
+    "output": "NON-EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .MXI.none}}NON-ZERO{{else}}ZERO{{end}}",
+    "name": "if map unset",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if not .MXI.none}}ZERO{{else}}NON-ZERO{{end}}",
+    "name": "if map not unset",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if $x := true}}{{with $y := .I}}{{$x}},{{$y}}{{end}}{{end}}",
+    "name": "if $x with $y int",
+    "ok": true,
+    "output": "true,17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if $x := true}}{{with $x := .I}}{{$x}},{{end}}{{$x}}{{end}}",
+    "name": "if $x with $x int",
+    "ok": true,
+    "output": "17,true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if false}}FALSE{{else if true}}TRUE{{end}}",
+    "name": "if else if",
+    "ok": true,
+    "output": "TRUE"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if eq 1 3}}1{{else if eq 2 3}}2{{else if eq 3 3}}3{{end}}",
+    "name": "if else chain",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print \"hello, print\"}}",
+    "name": "print",
+    "ok": true,
+    "output": "hello, print"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 1 2 3}}",
+    "name": "print 123",
+    "ok": true,
+    "output": "1 2 3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print nil}}",
+    "name": "print nil",
+    "ok": true,
+    "output": "<nil>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{println 1 2 3}}",
+    "name": "println",
+    "ok": true,
+    "output": "1 2 3\n"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%04x\" 127}}",
+    "name": "printf int",
+    "ok": true,
+    "output": "007f"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%g\" 3.5}}",
+    "name": "printf float",
+    "ok": true,
+    "output": "3.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%g\" 1+7i}}",
+    "name": "printf complex",
+    "ok": true,
+    "output": "(1+7i)"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%s\" \"hello\"}}",
+    "name": "printf string",
+    "ok": true,
+    "output": "hello"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%#q\" zeroArgs}}",
+    "name": "printf function",
+    "ok": true,
+    "output": "`zeroArgs`"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%s\" .U.V}}",
+    "name": "printf field",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%s\" .Method0}}",
+    "name": "printf method",
+    "ok": true,
+    "output": "M0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .I}}{{printf \"%d\" .}}{{end}}",
+    "name": "printf dot",
+    "ok": true,
+    "output": "17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $x := .I}}{{printf \"%d\" $x}}{{end}}",
+    "name": "printf var",
+    "ok": true,
+    "output": "17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{printf \"%d %s %g %s\" 127 \"hello\" 7-3i .Method0}}",
+    "name": "printf lots",
+    "ok": true,
+    "output": "127 hello (7-3i) M0"
+  },
+  {
+    "data": null,
+    "input": "{{html \"<script>alert(\\\"XSS\\\");</script>\"}}",
+    "name": "html",
+    "ok": true,
+    "output": "&lt;script&gt;alert(&#34;XSS&#34;);&lt;/script&gt;"
+  },
+  {
+    "data": null,
+    "input": "{{printf \"<script>alert(\\\"XSS\\\");</script>\" | html}}",
+    "name": "html pipeline",
+    "ok": true,
+    "output": "&lt;script&gt;alert(&#34;XSS&#34;);&lt;/script&gt;"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{html .PS}}",
+    "name": "html",
+    "ok": true,
+    "output": "a string"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{html .NIL}}",
+    "name": "html typed nil",
+    "ok": true,
+    "output": "&lt;nil&gt;"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{html .Empty0}}",
+    "name": "html untyped nil",
+    "ok": true,
+    "output": "&lt;no value&gt;"
+  },
+  {
+    "data": {
+      "$fixture": "5d2109f189787f9d"
+    },
+    "input": "{{js .}}",
+    "name": "js",
+    "ok": true,
+    "output": "It\\'d be nice."
+  },
+  {
+    "data": null,
+    "input": "{{\"http://www.example.org/\"|urlquery}}",
+    "name": "urlquery",
+    "ok": true,
+    "output": "http%3A%2F%2Fwww.example.org%2F"
+  },
+  {
+    "data": null,
+    "input": "{{not true}} {{not false}}",
+    "name": "not",
+    "ok": true,
+    "output": "false true"
+  },
+  {
+    "data": null,
+    "input": "{{and false 0}} {{and 1 0}} {{and 0 true}} {{and 1 1}}",
+    "name": "and",
+    "ok": true,
+    "output": "false 0 0 1"
+  },
+  {
+    "data": null,
+    "input": "{{or 0 0}} {{or 1 0}} {{or 0 true}} {{or 1 1}}",
+    "name": "or",
+    "ok": true,
+    "output": "0 1 true 1"
+  },
+  {
+    "data": null,
+    "input": "{{or 0 1 (die)}}",
+    "name": "or short-circuit",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": null,
+    "input": "{{and 1 0 (die)}}",
+    "name": "and short-circuit",
+    "ok": true,
+    "output": "0"
+  },
+  {
+    "data": null,
+    "input": "{{or 0 0 (die)}}",
+    "name": "or short-circuit2",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": null,
+    "input": "{{and 1 1 (die)}}",
+    "name": "and short-circuit2",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": null,
+    "input": "{{1 | and 1}}",
+    "name": "and pipe-true",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": null,
+    "input": "{{0 | and 1}}",
+    "name": "and pipe-false",
+    "ok": true,
+    "output": "0"
+  },
+  {
+    "data": null,
+    "input": "{{1 | or 0}}",
+    "name": "or pipe-true",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": null,
+    "input": "{{0 | or 0}}",
+    "name": "or pipe-false",
+    "ok": true,
+    "output": "0"
+  },
+  {
+    "data": null,
+    "input": "{{and 1 .Unknown}}",
+    "name": "and undef",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": null,
+    "input": "{{or 0 .Unknown}}",
+    "name": "or undef",
+    "ok": true,
+    "output": "<no value>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if and true 1 `hi`}}TRUE{{else}}FALSE{{end}}",
+    "name": "boolean if",
+    "ok": true,
+    "output": "TRUE"
+  },
+  {
+    "data": null,
+    "input": "{{if and true 1 `hi` | not}}TRUE{{else}}FALSE{{end}}",
+    "name": "boolean if not",
+    "ok": true,
+    "output": "FALSE"
+  },
+  {
+    "data": null,
+    "input": "{{if true | not | and 1}}TRUE{{else}}FALSE{{end}}",
+    "name": "boolean if pipe",
+    "ok": true,
+    "output": "FALSE"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SI 0}}",
+    "name": "slice[0]",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SI 1}}",
+    "name": "slice[1]",
+    "ok": true,
+    "output": "4"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SI 10}}",
+    "name": "slice[HUGE]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SI `hello`}}",
+    "name": "slice[WRONG]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SI nil}}",
+    "name": "slice[nil]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI `one`}}",
+    "name": "map[one]",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI `two`}}",
+    "name": "map[two]",
+    "ok": true,
+    "output": "2"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI `XXX`}}",
+    "name": "map[NO]",
+    "ok": true,
+    "output": "0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI nil}}",
+    "name": "map[nil]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI ``}}",
+    "name": "map[``]",
+    "ok": true,
+    "output": "0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MSI 10}}",
+    "name": "map[WRONG]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .SMSI 1 `eleven`}}",
+    "name": "double index",
+    "ok": true,
+    "output": "11"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index nil 1}}",
+    "name": "nil[1]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MI64S 2}}",
+    "name": "map MI64S",
+    "ok": true,
+    "output": "i642"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MI32S 2}}",
+    "name": "map MI32S",
+    "ok": true,
+    "output": "two"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MUI64S 3}}",
+    "name": "map MUI64S",
+    "ok": true,
+    "output": "ui643"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MI8S 3}}",
+    "name": "map MI8S",
+    "ok": true,
+    "output": "i83"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .MUI8S 2}}",
+    "name": "map MUI8S",
+    "ok": true,
+    "output": "u82"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .Empty3 0}}",
+    "name": "index of an interface field",
+    "ok": true,
+    "output": "7"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI}}",
+    "name": "slice[:]",
+    "ok": true,
+    "output": "[3 4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 1}}",
+    "name": "slice[1:]",
+    "ok": true,
+    "output": "[4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 1 2}}",
+    "name": "slice[1:2]",
+    "ok": true,
+    "output": "[4]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI -1}}",
+    "name": "slice[-1:]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 1 -2}}",
+    "name": "slice[1:-2]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 1 2 -1}}",
+    "name": "slice[1:2:-1]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 2 1}}",
+    "name": "slice[2:1]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 2 2 1}}",
+    "name": "slice[2:2:1]",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 4 5}}",
+    "name": "out of range",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SI 2 2 5}}",
+    "name": "out of range",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SICap 6 10}}",
+    "name": "len(s) < indexes < cap(s)",
+    "ok": true,
+    "output": "[0 0 0 0]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SICap 6 10 10}}",
+    "name": "len(s) < indexes < cap(s)",
+    "ok": true,
+    "output": "[0 0 0 0]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SICap 10 11}}",
+    "name": "indexes > cap(s)",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .SICap 6 10 11}}",
+    "name": "indexes > cap(s)",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .AI}}",
+    "name": "array[:]",
+    "ok": true,
+    "output": "[3 4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .AI 1}}",
+    "name": "array[1:]",
+    "ok": true,
+    "output": "[4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .AI 1 2}}",
+    "name": "array[1:2]",
+    "ok": true,
+    "output": "[4]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .PAI}}",
+    "name": "pointer to array[:]",
+    "ok": true,
+    "output": "[3 4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .PAI 1}}",
+    "name": "pointer to array[1:]",
+    "ok": true,
+    "output": "[4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .PAI 1 2}}",
+    "name": "pointer to array[1:2]",
+    "ok": true,
+    "output": "[4]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S}}",
+    "name": "string[:]",
+    "ok": true,
+    "output": "xyz"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S 0 1}}",
+    "name": "string[0:1]",
+    "ok": true,
+    "output": "x"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S 1}}",
+    "name": "string[1:]",
+    "ok": true,
+    "output": "yz"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S 1 2}}",
+    "name": "string[1:2]",
+    "ok": true,
+    "output": "y"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S 1 5}}",
+    "name": "out of range",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .S 1 2 2}}",
+    "name": "3-index slice of string",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{slice .Empty3 0 1}}",
+    "name": "slice of an interface field",
+    "ok": true,
+    "output": "[7]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len .SI}}",
+    "name": "slice",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len .MSI }}",
+    "name": "map",
+    "ok": true,
+    "output": "3"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len 3}}",
+    "name": "len of int",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len .Empty0}}",
+    "name": "len of nothing",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len .Empty3}}",
+    "name": "len of an interface field",
+    "ok": true,
+    "output": "2"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with true}}{{.}}{{end}}",
+    "name": "with true",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with false}}{{.}}{{else}}FALSE{{end}}",
+    "name": "with false",
+    "ok": true,
+    "output": "FALSE"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 1}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 1",
+    "ok": true,
+    "output": "1"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 0}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 0",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 1.5}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 1.5",
+    "ok": true,
+    "output": "1.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .FloatZero}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 0.0",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 1.5i}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 1.5i",
+    "ok": true,
+    "output": "(0+1.5i)"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .ComplexZero}}{{.}}{{else}}ZERO{{end}}",
+    "name": "with 0.0i",
+    "ok": true,
+    "output": "ZERO"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with ``}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with emptystring",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with `notempty`}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with string",
+    "ok": true,
+    "output": "notempty"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .SIEmpty}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with emptyslice",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .SI}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with slice",
+    "ok": true,
+    "output": "[3 4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .MSIEmpty}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with emptymap",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .MSIone}}{{.}}{{else}}EMPTY{{end}}",
+    "name": "with map",
+    "ok": true,
+    "output": "map[one:1]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .Empty4}}{{.V}}{{end}}",
+    "name": "with empty interface, struct field",
+    "ok": true,
+    "output": "UinEmpty"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $x := .I}}{{$x}}{{end}}",
+    "name": "with $x int",
+    "ok": true,
+    "output": "17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $x := $}}{{$x.U.V}}{{end}}",
+    "name": "with $x struct.U.V",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $x := $}}{{$y := $.U.V}}{{$y}}{{end}}",
+    "name": "with variable and action",
+    "ok": true,
+    "output": "v"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with .NonEmptyInterfaceTypedNil}}TRUE{{ end }}",
+    "name": "with on typed nil interface value",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 0}}{{.}}{{else with true}}{{.}}{{end}}",
+    "name": "with else with",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with 0}}{{.}}{{else with false}}{{.}}{{else with `notempty`}}{{.}}{{end}}",
+    "name": "with else with chain",
+    "ok": true,
+    "output": "notempty"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SI}}-{{.}}-{{end}}",
+    "name": "range []int",
+    "ok": true,
+    "output": "-3--4--5-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SIEmpty}}-{{.}}-{{end}}",
+    "name": "range empty no else",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SI}}-{{.}}-{{else}}EMPTY{{end}}",
+    "name": "range []int else",
+    "ok": true,
+    "output": "-3--4--5-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SIEmpty}}-{{.}}-{{else}}EMPTY{{end}}",
+    "name": "range empty else",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SI}}-{{.}}-{{break}}NOTREACHED{{else}}EMPTY{{end}}",
+    "name": "range []int break else",
+    "ok": true,
+    "output": "-3-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SI}}-{{.}}-{{continue}}NOTREACHED{{else}}EMPTY{{end}}",
+    "name": "range []int continue else",
+    "ok": true,
+    "output": "-3--4--5-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SB}}-{{.}}-{{end}}",
+    "name": "range []bool",
+    "ok": true,
+    "output": "-true--false-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .SI | .MAdd .I}}-{{.}}-{{end}}",
+    "name": "range []int method",
+    "ok": true,
+    "output": "-20--21--22-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSI}}-{{.}}-{{end}}",
+    "name": "range map",
+    "ok": true,
+    "output": "-1--3--2-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSIEmpty}}-{{.}}-{{end}}",
+    "name": "range empty map no else",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSI}}-{{.}}-{{else}}EMPTY{{end}}",
+    "name": "range map else",
+    "ok": true,
+    "output": "-1--3--2-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSIEmpty}}-{{.}}-{{else}}EMPTY{{end}}",
+    "name": "range empty map else",
+    "ok": true,
+    "output": "EMPTY"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .Empty3}}-{{.}}-{{else}}EMPTY{{end}}",
+    "name": "range empty interface",
+    "ok": true,
+    "output": "-7--8-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .Empty0}}-{{.}}-{{end}}",
+    "name": "range empty nil",
+    "ok": true,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x := .SI}}<{{$x}}>{{end}}",
+    "name": "range $x SI",
+    "ok": true,
+    "output": "<3><4><5>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x, $y := .SI}}<{{$x}}={{$y}}>{{end}}",
+    "name": "range $x $y SI",
+    "ok": true,
+    "output": "<0=3><1=4><2=5>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x := .MSIone}}<{{$x}}>{{end}}",
+    "name": "range $x MSIone",
+    "ok": true,
+    "output": "<1>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x, $y := .MSIone}}<{{$x}}={{$y}}>{{end}}",
+    "name": "range $x $y MSIone",
+    "ok": true,
+    "output": "<one=1>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x := .PSI}}<{{$x}}>{{end}}",
+    "name": "range $x PSI",
+    "ok": true,
+    "output": "<21><22><23>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $x := .PSI}}<{{$foo:=$x}}{{$x}}>{{end}}",
+    "name": "declare in range",
+    "ok": true,
+    "output": "<21><22><23>"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $i, $x := count 5}}[{{$i}}]{{$x}}{{end}}",
+    "name": "range count",
+    "ok": true,
+    "output": "[0]a[1]b[2]c[3]d[4]e"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range $i, $x := count 0}}{{else}}empty{{end}}",
+    "name": "range nil count",
+    "ok": true,
+    "output": "empty"
+  },
+  {
+    "data": {
+      "$fixture": "3e175c42ee20e7ad"
+    },
+    "input": "{{range $i := .}}{{$i}}{{end}}",
+    "name": "range iter.Seq[int]",
+    "ok": true,
+    "output": "01"
+  },
+  {
+    "data": {
+      "$fixture": "3e175c42ee20e7ad"
+    },
+    "input": "{{$i := 0}}{{range $i = .}}{{$i}}{{end}}",
+    "name": "i = range iter.Seq[int]",
+    "ok": true,
+    "output": "01"
+  },
+  {
+    "data": {
+      "$fixture": "3e175c42ee20e7ad"
+    },
+    "input": "{{range $i, $c := .}}{{$c}}{{end}}",
+    "name": "range iter.Seq[int] over two var",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "e305e82e16c45eff"
+    },
+    "input": "{{range $i, $c := .}}{{$i}}{{$c}}{{end}}",
+    "name": "i, c := range iter.Seq2[int,int]",
+    "ok": true,
+    "output": "0112"
+  },
+  {
+    "data": {
+      "$fixture": "e305e82e16c45eff"
+    },
+    "input": "{{$i := 0}}{{$c := 0}}{{range $i, $c = .}}{{$i}}{{$c}}{{end}}",
+    "name": "i, c = range iter.Seq2[int,int]",
+    "ok": true,
+    "output": "0112"
+  },
+  {
+    "data": {
+      "$fixture": "e305e82e16c45eff"
+    },
+    "input": "{{$i := 0}}{{range $i = .}}{{$i}}{{end}}",
+    "name": "i = range iter.Seq2[int,int]",
+    "ok": true,
+    "output": "01"
+  },
+  {
+    "data": {
+      "$fixture": "e305e82e16c45eff"
+    },
+    "input": "{{range $i := .}}{{$i}}{{end}}",
+    "name": "i := range iter.Seq2[int,int]",
+    "ok": true,
+    "output": "01"
+  },
+  {
+    "data": {
+      "$fixture": "e305e82e16c45eff"
+    },
+    "input": "{{$i := 0}}{{$c := 0}}{{$x := 0}}{{range $i, $c = .}}{{$i}}{{$c}}{{end}}",
+    "name": "i,c,x range iter.Seq2[int,int]",
+    "ok": true,
+    "output": "0112"
+  },
+  {
+    "data": {
+      "$fixture": "3e175c42ee20e7ad"
+    },
+    "input": "{{$i := 0}}{{$x := 0}}{{range $i = .}}{{$i}}{{end}}",
+    "name": "i,x range iter.Seq[int]",
+    "ok": true,
+    "output": "01"
+  },
+  {
+    "data": {
+      "$fixture": "a269551dc204ea90"
+    },
+    "input": "{{range $i := .}}{{$i}}{{else}}empty{{end}}",
+    "name": "range iter.Seq[int] else",
+    "ok": true,
+    "output": "empty"
+  },
+  {
+    "data": {
+      "$fixture": "40b6ce217690bcc9"
+    },
+    "input": "{{range $i := .}}{{$i}}{{else}}empty{{end}}",
+    "name": "range iter.Seq2[int,int] else",
+    "ok": true,
+    "output": "empty"
+  },
+  {
+    "data": {
+      "$fixture": "21a128e03a9cf404"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range int8",
+    "ok": true,
+    "output": "int80int81int82int83int84"
+  },
+  {
+    "data": {
+      "$fixture": "ed29f60ddb86df71"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range int16",
+    "ok": true,
+    "output": "int160int161int162int163int164"
+  },
+  {
+    "data": {
+      "$fixture": "e634ac7741b27a1e"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range int32",
+    "ok": true,
+    "output": "int320int321int322int323int324"
+  },
+  {
+    "data": {
+      "$fixture": "a6dfa120359e1206"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range int64",
+    "ok": true,
+    "output": "int640int641int642int643int644"
+  },
+  {
+    "data": {
+      "$fixture": "4ec829d9b0772cf6"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range int",
+    "ok": true,
+    "output": "int0int1int2int3int4"
+  },
+  {
+    "data": {
+      "$fixture": "48b9e9f625ece2b9"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uint8",
+    "ok": true,
+    "output": "uint80uint81uint82uint83uint84"
+  },
+  {
+    "data": {
+      "$fixture": "d538a0233a49edc9"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uint16",
+    "ok": true,
+    "output": "uint160uint161uint162uint163uint164"
+  },
+  {
+    "data": {
+      "$fixture": "c5d6d4483700479d"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uint32",
+    "ok": true,
+    "output": "uint320uint321uint322uint323uint324"
+  },
+  {
+    "data": {
+      "$fixture": "7b9c602c6af00f53"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uint64",
+    "ok": true,
+    "output": "uint640uint641uint642uint643uint644"
+  },
+  {
+    "data": {
+      "$fixture": "0ae5a7a9707dfd1e"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uint",
+    "ok": true,
+    "output": "uint0uint1uint2uint3uint4"
+  },
+  {
+    "data": {
+      "$fixture": "d63dddaf10609215"
+    },
+    "input": "{{range $v := .}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range uintptr",
+    "ok": true,
+    "output": "uintptr0uintptr1uintptr2uintptr3uintptr4"
+  },
+  {
+    "data": {
+      "$fixture": "b2e4ef385ea2c4b2"
+    },
+    "input": "{{range $v := .}}{{print $v}}{{else}}empty{{end}}",
+    "name": "range uintptr(0)",
+    "ok": true,
+    "output": "empty"
+  },
+  {
+    "data": null,
+    "input": "{{range $v := 5}}{{printf \"%T%d\" $v $v}}{{end}}",
+    "name": "range 5",
+    "ok": true,
+    "output": "int0int1int2int3int4"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{or .SI \"slice is empty\"}}",
+    "name": "or as if true",
+    "ok": true,
+    "output": "[3 4 5]"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{or .SIEmpty \"slice is empty\"}}",
+    "name": "or as if false",
+    "ok": true,
+    "output": "slice is empty"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MyError true}}",
+    "name": "error method, error",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.MyError false}}",
+    "name": "error method, no error",
+    "ok": true,
+    "output": "false"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 1234}}",
+    "name": "decimal",
+    "ok": true,
+    "output": "1234"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 12_34}}",
+    "name": "decimal _",
+    "ok": true,
+    "output": "1234"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0b101}}",
+    "name": "binary",
+    "ok": true,
+    "output": "5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0b_1_0_1}}",
+    "name": "binary _",
+    "ok": true,
+    "output": "5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0B101}}",
+    "name": "BINARY",
+    "ok": true,
+    "output": "5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0377}}",
+    "name": "octal0",
+    "ok": true,
+    "output": "255"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0o377}}",
+    "name": "octal",
+    "ok": true,
+    "output": "255"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0o_3_7_7}}",
+    "name": "octal _",
+    "ok": true,
+    "output": "255"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0O377}}",
+    "name": "OCTAL",
+    "ok": true,
+    "output": "255"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0x123}}",
+    "name": "hex",
+    "ok": true,
+    "output": "291"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0x1_23}}",
+    "name": "hex _",
+    "ok": true,
+    "output": "291"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0X123ABC}}",
+    "name": "HEX",
+    "ok": true,
+    "output": "1194684"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 123.4}}",
+    "name": "float",
+    "ok": true,
+    "output": "123.4"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 0_0_1_2_3.4}}",
+    "name": "float _",
+    "ok": true,
+    "output": "123.4"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print +0x1.ep+2}}",
+    "name": "hex float",
+    "ok": true,
+    "output": "7.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print +0x_1.e_0p+0_2}}",
+    "name": "hex float _",
+    "ok": true,
+    "output": "7.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print +0X1.EP+2}}",
+    "name": "HEX float",
+    "ok": true,
+    "output": "7.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 1_2_3_4 7.5_00_00_00}}",
+    "name": "print multi",
+    "ok": true,
+    "output": "1234 7.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print 1234 0x0_1.e_0p+02}}",
+    "name": "print multi2",
+    "ok": true,
+    "output": "1234 7.5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .MSIone}}{{if $.Method1 .}}X{{end}}{{end}}",
+    "name": "bug0",
+    "ok": true,
+    "output": "X"
+  },
+  {
+    "data": {
+      "$fixture": "f05b32beef883c2e"
+    },
+    "input": "{{.Method0}}",
+    "name": "bug1",
+    "ok": true,
+    "output": "M0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$.NonEmptyInterface.Method0}}",
+    "name": "bug2",
+    "ok": true,
+    "output": "M0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{with $}}{{.Method0}}{{end}}",
+    "name": "bug3",
+    "ok": true,
+    "output": "M0"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{if .Empty0}}non-nil{{else}}nil{{end}}",
+    "name": "bug4",
+    "ok": true,
+    "output": "nil"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Str}}",
+    "name": "bug5",
+    "ok": true,
+    "output": "foozle"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.Err}}",
+    "name": "bug5a",
+    "ok": true,
+    "output": "erroozle"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{vfunc .V0 .V1}}",
+    "name": "bug6a",
+    "ok": true,
+    "output": "vfunc"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{vfunc .V0 .V0}}",
+    "name": "bug6b",
+    "ok": true,
+    "output": "vfunc"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{vfunc .V1 .V0}}",
+    "name": "bug6c",
+    "ok": true,
+    "output": "vfunc"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{vfunc .V1 .V1}}",
+    "name": "bug6d",
+    "ok": true,
+    "output": "vfunc"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{3 2}}",
+    "name": "bug7a",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := 1}}{{$x 2}}",
+    "name": "bug7b",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := 1}}{{3 | $x}}",
+    "name": "bug7c",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{3|oneArg}}",
+    "name": "bug8a",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{4|dddArg 3}}",
+    "name": "bug8b",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "7ad51a0006ee8898"
+    },
+    "input": "{{.cause}}",
+    "name": "bug9",
+    "ok": true,
+    "output": "neglect"
+  },
+  {
+    "data": {
+      "$fixture": "7a4e15d458e170aa"
+    },
+    "input": "{{mapOfThree.three}}-{{(mapOfThree).three}}",
+    "name": "bug10",
+    "ok": true,
+    "output": "3-3"
+  },
+  {
+    "data": {
+      "$fixture": "5990aabe4d4332ac"
+    },
+    "input": "{{valueString .PS}}",
+    "name": "bug11",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "5990aabe4d4332ac"
+    },
+    "input": "{{printf `%T` 0xef}}",
+    "name": "bug12xe",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "5990aabe4d4332ac"
+    },
+    "input": "{{printf `%T` 0xEE}}",
+    "name": "bug12xE",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "5990aabe4d4332ac"
+    },
+    "input": "{{printf `%T` 0Xef}}",
+    "name": "bug12Xe",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "5990aabe4d4332ac"
+    },
+    "input": "{{printf `%T` 0XEE}}",
+    "name": "bug12XE",
+    "ok": true,
+    "output": "int"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{print (.Copy).I}}",
+    "name": "bug13",
+    "ok": true,
+    "output": "17"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{(nil).True}}",
+    "name": "bug14a",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := nil}}{{$x.anything}}",
+    "name": "bug14b",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$x := (1.0)}}{{$y := (\"hello\")}}{{$x.anything}}{{$y.true}}",
+    "name": "bug14c",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{valueString returnInt}}",
+    "name": "bug15",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{true|printf}}",
+    "name": "bug16a",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{1|printf}}",
+    "name": "bug16b",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{1.1|printf}}",
+    "name": "bug16c",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{'x'|printf}}",
+    "name": "bug16d",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{0i|printf}}",
+    "name": "bug16e",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{true|twoArgs \"xxx\"}}",
+    "name": "bug16f",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{\"aaa\" |twoArgs \"bbb\"}}",
+    "name": "bug16g",
+    "ok": true,
+    "output": "twoArgs=bbbaaa"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{1|oneArg}}",
+    "name": "bug16h",
+    "ok": false,
+    "output": ""
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{\"aaa\"|oneArg}}",
+    "name": "bug16i",
+    "ok": true,
+    "output": "oneArg=aaa"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{1+2i|printf \"%v\"}}",
+    "name": "bug16j",
+    "ok": true,
+    "output": "(1+2i)"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{\"aaa\"|printf }}",
+    "name": "bug16k",
+    "ok": true,
+    "output": "aaa"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{.NonEmptyInterface.X}}",
+    "name": "bug17a",
+    "ok": true,
+    "output": "x"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "-{{.NonEmptyInterface.Method1 1234}}-",
+    "name": "bug17b",
+    "ok": true,
+    "output": "-1234-"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{len .NonEmptyInterfacePtS}}",
+    "name": "bug17c",
+    "ok": true,
+    "output": "2"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{index .NonEmptyInterfacePtS 0}}",
+    "name": "bug17d",
+    "ok": true,
+    "output": "a"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{range .NonEmptyInterfacePtS}}-{{.}}-{{end}}",
+    "name": "bug17e",
+    "ok": true,
+    "output": "-a--b-"
+  },
+  {
+    "data": {
+      "$fixture": "dac4de3252ca1ba5"
+    },
+    "input": "{{eq . '.'}}",
+    "name": "bug18a",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "dd1c55604881c371"
+    },
+    "input": "{{eq . 'e'}}",
+    "name": "bug18b",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "3eb23092f9c90f62"
+    },
+    "input": "{{eq . 'P'}}",
+    "name": "bug18c",
+    "ok": true,
+    "output": "true"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$i := 0}}{{$x := 0}}{{range $i = .AI}}{{end}}{{$i}}",
+    "name": "issue56490",
+    "ok": true,
+    "output": "5"
+  },
+  {
+    "data": {
+      "$fixture": "45ba59707312d201"
+    },
+    "input": "{{$k := 0}}{{$v := 0}}{{range $k, $v = .AI}}{{$k}}={{$v}} {{end}}",
+    "name": "issue60801",
+    "ok": true,
+    "output": "0=3 1=4 2=5 "
+  }
+]

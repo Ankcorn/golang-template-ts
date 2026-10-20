@@ -1,0 +1,3772 @@
+{
+  "delims": [
+    {
+      "input": "$$,@%{{}}@@",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "$$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": ","
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "%"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "@@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "punctuation"
+    },
+    {
+      "input": "$$@@",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "$$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "@@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "empty action"
+    },
+    {
+      "input": "$$for@@",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "$$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "for"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "@@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "for"
+    },
+    {
+      "input": "$$\"abc \\n\\t\\\" \"@@",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "$$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "string",
+          "value": "\"abc \\n\\t\\\" \""
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "@@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "quote"
+    },
+    {
+      "input": "$$`abc\\n\\t\\\" `@@",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "$$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "raw string",
+          "value": "`abc\\n\\t\\\" `"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "@@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "raw quote"
+    }
+  ],
+  "errors": [
+    {
+      "input": "line1\n{{",
+      "name": "unclosed1",
+      "ok": false,
+      "result": "unclosed1:2: unclosed action"
+    },
+    {
+      "input": "line1\n{{define `x`}}line2\n{{",
+      "name": "unclosed2",
+      "ok": false,
+      "result": "unclosed2:3: unclosed action"
+    },
+    {
+      "input": "line1\n{{\"x\"\n\"y\"\n",
+      "name": "unclosed3",
+      "ok": false,
+      "result": "unclosed3:4: unclosed action started at unclosed3:2"
+    },
+    {
+      "input": "{{\n\n\n\n\n",
+      "name": "unclosed4",
+      "ok": false,
+      "result": "unclosed4:6: unclosed action started at unclosed4:1"
+    },
+    {
+      "input": "line1\n{{\nx\n}}",
+      "name": "var1",
+      "ok": false,
+      "result": "var1:3: function \"x\" not defined"
+    },
+    {
+      "input": "{{foo}}",
+      "name": "function",
+      "ok": false,
+      "result": "function \"foo\" not defined"
+    },
+    {
+      "input": "{{/*}}",
+      "name": "comment1",
+      "ok": false,
+      "result": "comment1:1: unclosed comment"
+    },
+    {
+      "input": "{{/*\nhello\n}}",
+      "name": "comment2",
+      "ok": false,
+      "result": "comment2:1: unclosed comment"
+    },
+    {
+      "input": "{{.X (1 2 3}}",
+      "name": "lparen",
+      "ok": false,
+      "result": "unclosed left paren"
+    },
+    {
+      "input": "{{.X 1 2 3 ) }}",
+      "name": "rparen",
+      "ok": false,
+      "result": "unexpected right paren"
+    },
+    {
+      "input": "{{(.X 1 2 3",
+      "name": "rparen2",
+      "ok": false,
+      "result": "unclosed action"
+    },
+    {
+      "input": "{{`x`3}}",
+      "name": "space",
+      "ok": false,
+      "result": "in operand"
+    },
+    {
+      "input": "{{a#}}",
+      "name": "idchar",
+      "ok": false,
+      "result": "'#'"
+    },
+    {
+      "input": "{{'a}}",
+      "name": "charconst",
+      "ok": false,
+      "result": "unterminated character constant"
+    },
+    {
+      "input": "{{\"a}}",
+      "name": "stringconst",
+      "ok": false,
+      "result": "unterminated quoted string"
+    },
+    {
+      "input": "{{`a}}",
+      "name": "rawstringconst",
+      "ok": false,
+      "result": "unterminated raw quoted string"
+    },
+    {
+      "input": "{{0xi}}",
+      "name": "number",
+      "ok": false,
+      "result": "number syntax"
+    },
+    {
+      "input": "{{define `a`}}a{{end}}{{define `a`}}b{{end}}",
+      "name": "multidefine",
+      "ok": false,
+      "result": "multiple definition of template"
+    },
+    {
+      "input": "{{range .X}}",
+      "name": "eof",
+      "ok": false,
+      "result": "unexpected EOF"
+    },
+    {
+      "input": "{{$x := 23}}{{with $x.y := 3}}{{$x 23}}{{end}}",
+      "name": "variable",
+      "ok": false,
+      "result": "unexpected \":=\""
+    },
+    {
+      "input": "{{$a,$b,$c := 23}}",
+      "name": "multidecl",
+      "ok": false,
+      "result": "too many declarations"
+    },
+    {
+      "input": "{{$a}}",
+      "name": "undefvar",
+      "ok": false,
+      "result": "undefined variable"
+    },
+    {
+      "input": "{{true.any}}",
+      "name": "wrongdot",
+      "ok": false,
+      "result": "unexpected . after term"
+    },
+    {
+      "input": "{{12|false}}",
+      "name": "wrongpipeline",
+      "ok": false,
+      "result": "non executable command in pipeline"
+    },
+    {
+      "input": "{{ ( ) }}",
+      "name": "emptypipeline",
+      "ok": false,
+      "result": "missing value for parenthesized pipeline"
+    },
+    {
+      "input": "{{ $v := `\n` }} {{",
+      "name": "multilinerawstring",
+      "ok": false,
+      "result": "multilinerawstring:2: unclosed action"
+    },
+    {
+      "input": "{{range $k}}{{end}}",
+      "name": "rangeundefvar",
+      "ok": false,
+      "result": "undefined variable"
+    },
+    {
+      "input": "{{range $k, $v}}{{end}}",
+      "name": "rangeundefvars",
+      "ok": false,
+      "result": "undefined variable"
+    },
+    {
+      "input": "{{range $k,}}{{end}}",
+      "name": "rangemissingvalue1",
+      "ok": false,
+      "result": "missing value for range"
+    },
+    {
+      "input": "{{range $k, $v := }}{{end}}",
+      "name": "rangemissingvalue2",
+      "ok": false,
+      "result": "missing value for range"
+    },
+    {
+      "input": "{{range $k, .}}{{end}}",
+      "name": "rangenotvariable1",
+      "ok": false,
+      "result": "range can only initialize variables"
+    },
+    {
+      "input": "{{range $k, 123 := .}}{{end}}",
+      "name": "rangenotvariable2",
+      "ok": false,
+      "result": "range can only initialize variables"
+    }
+  ],
+  "lex": [
+    {
+      "input": "",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "empty"
+    },
+    {
+      "input": " \t\n",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": " \t\n"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "spaces"
+    },
+    {
+      "input": "now is the time",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "now is the time"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "text"
+    },
+    {
+      "input": "hello-{{/* this is a comment */}}-world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "comment",
+          "value": "/* this is a comment */"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "-world"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "text with comment"
+    },
+    {
+      "input": "{{,@% }}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": ","
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "@"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": "%"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "punctuation"
+    },
+    {
+      "input": "{{((3))}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "(",
+          "value": "("
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "(",
+          "value": "("
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ")",
+          "value": ")"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ")",
+          "value": ")"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "parens"
+    },
+    {
+      "input": "{{}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "empty action"
+    },
+    {
+      "input": "{{for}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "for"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "for"
+    },
+    {
+      "input": "{{block \"foo\" .}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "block",
+          "value": "block"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "string",
+          "value": "\"foo\""
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ".",
+          "value": "."
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "block"
+    },
+    {
+      "input": "{{\"abc \\n\\t\\\" \"}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "string",
+          "value": "\"abc \\n\\t\\\" \""
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "quote"
+    },
+    {
+      "input": "{{`abc\\n\\t\\\" `}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "raw string",
+          "value": "`abc\\n\\t\\\" `"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "raw quote"
+    },
+    {
+      "input": "{{`now is{{\n}}the time`}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "raw string",
+          "value": "`now is{{\n}}the time`"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "raw quote with newline"
+    },
+    {
+      "input": "{{1 02 0x14 0X14 -7.2i 1e3 1E3 +1.2e-4 4.2i 1+2i 1_2 0x1.e_fp4 0X1.E_FP4}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "02"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "0x14"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "0X14"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "-7.2i"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1e3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1E3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "+1.2e-4"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "4.2i"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "complex",
+          "value": "1+2i"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1_2"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "0x1.e_fp4"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "0X1.E_FP4"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "numbers"
+    },
+    {
+      "input": "{{'a' '\\n' '\\'' '\\\\' '\\u00FF' '\\xFF' '本'}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'a'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'\\n'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'\\''"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'\\\\'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'\\u00FF'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'\\xFF'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "charconst",
+          "value": "'本'"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "characters"
+    },
+    {
+      "input": "{{true false}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "bool",
+          "value": "true"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "bool",
+          "value": "false"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "bools"
+    },
+    {
+      "input": "{{.}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ".",
+          "value": "."
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "dot"
+    },
+    {
+      "input": "{{nil}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "nil",
+          "value": "nil"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "nil"
+    },
+    {
+      "input": "{{.x . .2 .x.y.z}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".x"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ".",
+          "value": "."
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": ".2"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".x"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".y"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".z"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "dots"
+    },
+    {
+      "input": "{{range if else end with}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "range",
+          "value": "range"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "if",
+          "value": "if"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "else",
+          "value": "else"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "end",
+          "value": "end"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "with",
+          "value": "with"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "keywords"
+    },
+    {
+      "input": "{{$c := printf $ $hello $23 $ $var.Field .Method}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$c"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ":=",
+          "value": ":="
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "printf"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$hello"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$23"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$var"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".Field"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".Method"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "variables"
+    },
+    {
+      "input": "{{$x 23}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$x"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "23"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "variable invocation"
+    },
+    {
+      "input": "intro {{echo hi 1.2 |noargs|args 1 \"hi\"}} outro",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "intro "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "echo"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "hi"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1.2"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "noargs"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "identifier",
+          "value": "args"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "string",
+          "value": "\"hi\""
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": " outro"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "pipeline"
+    },
+    {
+      "input": "{{$v := 3}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$v"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ":=",
+          "value": ":="
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "declaration"
+    },
+    {
+      "input": "{{$v , $w := 3}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$v"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "char",
+          "value": ","
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "variable",
+          "value": "$w"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ":=",
+          "value": ":="
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "2 declarations"
+    },
+    {
+      "input": "{{(.X).Y}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "(",
+          "value": "("
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".X"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": ")",
+          "value": ")"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "field",
+          "value": ".Y"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "field of parenthesized expression"
+    },
+    {
+      "input": "hello- {{- 3 -}} -world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "-world"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "trimming spaces before and after"
+    },
+    {
+      "input": "hello- {{- /* hello */ -}} -world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "comment",
+          "value": "/* hello */"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "-world"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "trimming spaces before and after comment"
+    },
+    {
+      "input": "#{{\u0001}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "#"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unrecognized character in action: U+0001"
+        }
+      ],
+      "name": "badchar"
+    },
+    {
+      "input": "{{",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unclosed action"
+        }
+      ],
+      "name": "unclosed action"
+    },
+    {
+      "input": "{{range",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "range",
+          "value": "range"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unclosed action"
+        }
+      ],
+      "name": "EOF in action"
+    },
+    {
+      "input": "{{\"\n\"}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unterminated quoted string"
+        }
+      ],
+      "name": "unclosed quote"
+    },
+    {
+      "input": "{{`xx}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unterminated raw quoted string"
+        }
+      ],
+      "name": "unclosed raw quote"
+    },
+    {
+      "input": "{{'\n}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unterminated character constant"
+        }
+      ],
+      "name": "unclosed char constant"
+    },
+    {
+      "input": "{{3k}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "bad number syntax: \"3k\""
+        }
+      ],
+      "name": "bad number"
+    },
+    {
+      "input": "{{(3}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "(",
+          "value": "("
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unclosed left paren"
+        }
+      ],
+      "name": "unclosed paren"
+    },
+    {
+      "input": "{{3)}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unexpected right paren"
+        }
+      ],
+      "name": "extra right paren"
+    },
+    {
+      "input": "{{|||||}}",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "pipe",
+          "value": "|"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "long pipeline deadlock"
+    },
+    {
+      "input": "hello-{{/*/}}-world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "unclosed comment"
+        }
+      ],
+      "name": "text with bad comment"
+    },
+    {
+      "input": "hello-{{/* */ }}-world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "error",
+          "value": "comment ends before closing delimiter"
+        }
+      ],
+      "name": "text with comment close separated from delim"
+    },
+    {
+      "input": "hello-{.}}-world",
+      "items": [
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "item20",
+          "value": "hello-{.}}-world"
+        },
+        {
+          "line": 0,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "unmatched right delimiter"
+    }
+  ],
+  "numbers": [
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "-0",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 73,
+      "int": "73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "73",
+      "uint": "73"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 73,
+      "int": "73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "7_3",
+      "uint": "73"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 73,
+      "int": "73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0b10_010_01",
+      "uint": "73"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 73,
+      "int": "73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0B10_010_01",
+      "uint": "73"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 59,
+      "int": "59",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "073",
+      "uint": "59"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 59,
+      "int": "59",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0o73",
+      "uint": "59"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 59,
+      "int": "59",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0O73",
+      "uint": "59"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 115,
+      "int": "115",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0x73",
+      "uint": "115"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 115,
+      "int": "115",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0X73",
+      "uint": "115"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 115,
+      "int": "115",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0x7_3",
+      "uint": "115"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": -73,
+      "int": "-73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": false,
+      "text": "-73",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 73,
+      "int": "73",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": false,
+      "text": "+73",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 100,
+      "int": "100",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "100",
+      "uint": "100"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 1000000000,
+      "int": "1000000000",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "1e9",
+      "uint": "1000000000"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": -1000000000,
+      "int": "-1000000000",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": false,
+      "text": "-1e9",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": -1.2,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": false,
+      "text": "-1.2",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 10000000000000000000,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": true,
+      "text": "1e19",
+      "uint": "10000000000000000000"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 10000000000000000000,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": true,
+      "text": "1e1_9",
+      "uint": "10000000000000000000"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 10000000000000000000,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": true,
+      "text": "1E19",
+      "uint": "10000000000000000000"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": -10000000000000000000,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": false,
+      "text": "-1e19",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 16,
+      "int": "16",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0x_1p4",
+      "uint": "16"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 16,
+      "int": "16",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0X_1P4",
+      "uint": "16"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0.0625,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": false,
+      "text": "0x_1p-4",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        4
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": true,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "4i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        -1.2,
+        4.2
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": true,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "-1.2+4.2i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        73
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": true,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "073i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": true,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        -1.2,
+        0
+      ],
+      "float": -1.2,
+      "int": "0",
+      "isComplex": true,
+      "isFloat": true,
+      "isInt": false,
+      "isUint": false,
+      "text": "-1.2+0i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        -12,
+        0
+      ],
+      "float": -12,
+      "int": "-12",
+      "isComplex": true,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": false,
+      "text": "-12+0i",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        13,
+        0
+      ],
+      "float": 13,
+      "int": "13",
+      "isComplex": true,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "13+0i",
+      "uint": "13"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 83,
+      "int": "83",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0123",
+      "uint": "83"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "-0x0",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 3735928559,
+      "int": "3735928559",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0xdeadbeef",
+      "uint": "3735928559"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 97,
+      "int": "97",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'a'",
+      "uint": "97"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 10,
+      "int": "10",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\n'",
+      "uint": "10"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 92,
+      "int": "92",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\\\'",
+      "uint": "92"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 39,
+      "int": "39",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\''",
+      "uint": "39"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 255,
+      "int": "255",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\xFF'",
+      "uint": "255"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 12497,
+      "int": "12497",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'パ'",
+      "uint": "12497"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 12497,
+      "int": "12497",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\u30d1'",
+      "uint": "12497"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 12497,
+      "int": "12497",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "'\\U000030d1'",
+      "uint": "12497"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "+-2",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "0x123.",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "1e.",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "0xi.",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "1+2.",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "'x",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "'xx'",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 0,
+      "int": "0",
+      "isComplex": false,
+      "isFloat": false,
+      "isInt": false,
+      "isUint": false,
+      "text": "'433937734937734969526500969526500'",
+      "uint": "0"
+    },
+    {
+      "complex": [
+        0,
+        0
+      ],
+      "float": 239,
+      "int": "239",
+      "isComplex": false,
+      "isFloat": true,
+      "isInt": true,
+      "isUint": true,
+      "text": "0xef",
+      "uint": "239"
+    }
+  ],
+  "parse": [
+    {
+      "input": "",
+      "name": "empty",
+      "ok": true,
+      "result": ""
+    },
+    {
+      "input": "{{/*\n\n\n*/}}",
+      "name": "comment",
+      "ok": true,
+      "result": ""
+    },
+    {
+      "input": " \t\n",
+      "name": "spaces",
+      "ok": true,
+      "result": "\" \\t\\n\""
+    },
+    {
+      "input": "some text",
+      "name": "text",
+      "ok": true,
+      "result": "\"some text\""
+    },
+    {
+      "input": "{{}}",
+      "name": "emptyAction",
+      "ok": false,
+      "result": "{{}}"
+    },
+    {
+      "input": "{{.X}}",
+      "name": "field",
+      "ok": true,
+      "result": "{{.X}}"
+    },
+    {
+      "input": "{{printf}}",
+      "name": "simple command",
+      "ok": true,
+      "result": "{{printf}}"
+    },
+    {
+      "input": "{{$}}",
+      "name": "$ invocation",
+      "ok": true,
+      "result": "{{$}}"
+    },
+    {
+      "input": "{{with $x := 3}}{{$x 23}}{{end}}",
+      "name": "variable invocation",
+      "ok": true,
+      "result": "{{with $x := 3}}{{$x 23}}{{end}}"
+    },
+    {
+      "input": "{{$.I}}",
+      "name": "variable with fields",
+      "ok": true,
+      "result": "{{$.I}}"
+    },
+    {
+      "input": "{{printf `%d` 23}}",
+      "name": "multi-word command",
+      "ok": true,
+      "result": "{{printf `%d` 23}}"
+    },
+    {
+      "input": "{{.X|.Y}}",
+      "name": "pipeline",
+      "ok": true,
+      "result": "{{.X | .Y}}"
+    },
+    {
+      "input": "{{$x := .X|.Y}}",
+      "name": "pipeline with decl",
+      "ok": true,
+      "result": "{{$x := .X | .Y}}"
+    },
+    {
+      "input": "{{.X (.Y .Z) (.A | .B .C) (.E)}}",
+      "name": "nested pipeline",
+      "ok": true,
+      "result": "{{.X (.Y .Z) (.A | .B .C) (.E)}}"
+    },
+    {
+      "input": "{{(.Y .Z).Field}}",
+      "name": "field applied to parentheses",
+      "ok": true,
+      "result": "{{(.Y .Z).Field}}"
+    },
+    {
+      "input": "{{if .X}}hello{{end}}",
+      "name": "simple if",
+      "ok": true,
+      "result": "{{if .X}}\"hello\"{{end}}"
+    },
+    {
+      "input": "{{if .X}}true{{else}}false{{end}}",
+      "name": "if with else",
+      "ok": true,
+      "result": "{{if .X}}\"true\"{{else}}\"false\"{{end}}"
+    },
+    {
+      "input": "{{if .X}}true{{else if .Y}}false{{end}}",
+      "name": "if with else if",
+      "ok": true,
+      "result": "{{if .X}}\"true\"{{else}}{{if .Y}}\"false\"{{end}}{{end}}"
+    },
+    {
+      "input": "+{{if .X}}X{{else if .Y}}Y{{else if .Z}}Z{{end}}+",
+      "name": "if else chain",
+      "ok": true,
+      "result": "\"+\"{{if .X}}\"X\"{{else}}{{if .Y}}\"Y\"{{else}}{{if .Z}}\"Z\"{{end}}{{end}}{{end}}\"+\""
+    },
+    {
+      "input": "{{range .X}}hello{{end}}",
+      "name": "simple range",
+      "ok": true,
+      "result": "{{range .X}}\"hello\"{{end}}"
+    },
+    {
+      "input": "{{range .X.Y.Z}}hello{{end}}",
+      "name": "chained field range",
+      "ok": true,
+      "result": "{{range .X.Y.Z}}\"hello\"{{end}}"
+    },
+    {
+      "input": "{{range .X}}hello{{range .Y}}goodbye{{end}}{{end}}",
+      "name": "nested range",
+      "ok": true,
+      "result": "{{range .X}}\"hello\"{{range .Y}}\"goodbye\"{{end}}{{end}}"
+    },
+    {
+      "input": "{{range .X}}true{{else}}false{{end}}",
+      "name": "range with else",
+      "ok": true,
+      "result": "{{range .X}}\"true\"{{else}}\"false\"{{end}}"
+    },
+    {
+      "input": "{{range .X|.M}}true{{else}}false{{end}}",
+      "name": "range over pipeline",
+      "ok": true,
+      "result": "{{range .X | .M}}\"true\"{{else}}\"false\"{{end}}"
+    },
+    {
+      "input": "{{range .SI}}{{.}}{{end}}",
+      "name": "range []int",
+      "ok": true,
+      "result": "{{range .SI}}{{.}}{{end}}"
+    },
+    {
+      "input": "{{range $x := .SI}}{{.}}{{end}}",
+      "name": "range 1 var",
+      "ok": true,
+      "result": "{{range $x := .SI}}{{.}}{{end}}"
+    },
+    {
+      "input": "{{range $x, $y := .SI}}{{.}}{{end}}",
+      "name": "range 2 vars",
+      "ok": true,
+      "result": "{{range $x, $y := .SI}}{{.}}{{end}}"
+    },
+    {
+      "input": "{{range .SI}}{{.}}{{break}}{{end}}",
+      "name": "range with break",
+      "ok": true,
+      "result": "{{range .SI}}{{.}}{{break}}{{end}}"
+    },
+    {
+      "input": "{{range .SI}}{{.}}{{continue}}{{end}}",
+      "name": "range with continue",
+      "ok": true,
+      "result": "{{range .SI}}{{.}}{{continue}}{{end}}"
+    },
+    {
+      "input": "{{range .SI 1 -3.2i true false 'a' nil}}{{end}}",
+      "name": "constants",
+      "ok": true,
+      "result": "{{range .SI 1 -3.2i true false 'a' nil}}{{end}}"
+    },
+    {
+      "input": "{{template `x`}}",
+      "name": "template",
+      "ok": true,
+      "result": "{{template \"x\"}}"
+    },
+    {
+      "input": "{{template `x` .Y}}",
+      "name": "template with arg",
+      "ok": true,
+      "result": "{{template \"x\" .Y}}"
+    },
+    {
+      "input": "{{with .X}}hello{{end}}",
+      "name": "with",
+      "ok": true,
+      "result": "{{with .X}}\"hello\"{{end}}"
+    },
+    {
+      "input": "{{with .X}}hello{{else}}goodbye{{end}}",
+      "name": "with with else",
+      "ok": true,
+      "result": "{{with .X}}\"hello\"{{else}}\"goodbye\"{{end}}"
+    },
+    {
+      "input": "{{with .X}}hello{{else with .Y}}goodbye{{end}}",
+      "name": "with with else with",
+      "ok": true,
+      "result": "{{with .X}}\"hello\"{{else}}{{with .Y}}\"goodbye\"{{end}}{{end}}"
+    },
+    {
+      "input": "{{with .X}}X{{else with .Y}}Y{{else with .Z}}Z{{end}}",
+      "name": "with else chain",
+      "ok": true,
+      "result": "{{with .X}}\"X\"{{else}}{{with .Y}}\"Y\"{{else}}{{with .Z}}\"Z\"{{end}}{{end}}{{end}}"
+    },
+    {
+      "input": "x \r\n\t{{- 3}}",
+      "name": "trim left",
+      "ok": true,
+      "result": "\"x\"{{3}}"
+    },
+    {
+      "input": "{{3 -}}\n\n\ty",
+      "name": "trim right",
+      "ok": true,
+      "result": "{{3}}\"y\""
+    },
+    {
+      "input": "x \r\n\t{{- 3 -}}\n\n\ty",
+      "name": "trim left and right",
+      "ok": true,
+      "result": "\"x\"{{3}}\"y\""
+    },
+    {
+      "input": "x\n{{-  3   -}}\ny",
+      "name": "trim with extra spaces",
+      "ok": true,
+      "result": "\"x\"{{3}}\"y\""
+    },
+    {
+      "input": "x \r\n\t{{- /* hi */}}",
+      "name": "comment trim left",
+      "ok": true,
+      "result": "\"x\""
+    },
+    {
+      "input": "{{/* hi */ -}}\n\n\ty",
+      "name": "comment trim right",
+      "ok": true,
+      "result": "\"y\""
+    },
+    {
+      "input": "x \r\n\t{{- /* */ -}}\n\n\ty",
+      "name": "comment trim left and right",
+      "ok": true,
+      "result": "\"x\"\"y\""
+    },
+    {
+      "input": "{{block \"foo\" .}}hello{{end}}",
+      "name": "block definition",
+      "ok": true,
+      "result": "{{template \"foo\" .}}"
+    },
+    {
+      "input": "{{ $x \n := \n 1 \n }}",
+      "name": "newline in assignment",
+      "ok": true,
+      "result": "{{$x := 1}}"
+    },
+    {
+      "input": "{{\n}}",
+      "name": "newline in empty action",
+      "ok": false,
+      "result": "{{\n}}"
+    },
+    {
+      "input": "{{\n\"x\"\n|\nprintf\n}}",
+      "name": "newline in pipeline",
+      "ok": true,
+      "result": "{{\"x\" | printf}}"
+    },
+    {
+      "input": "{{/*\nhello\n*/}}",
+      "name": "newline in comment",
+      "ok": true,
+      "result": ""
+    },
+    {
+      "input": "{{-\n/*\nhello\n*/\n-}}",
+      "name": "newline in comment",
+      "ok": true,
+      "result": ""
+    },
+    {
+      "input": "{{range .SI}}{{.}}{{ continue }}{{end}}",
+      "name": "spaces around continue",
+      "ok": true,
+      "result": "{{range .SI}}{{.}}{{continue}}{{end}}"
+    },
+    {
+      "input": "{{range .SI}}{{.}}{{ break }}{{end}}",
+      "name": "spaces around break",
+      "ok": true,
+      "result": "{{range .SI}}{{.}}{{break}}{{end}}"
+    },
+    {
+      "input": "hello{{range",
+      "name": "unclosed action",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{end}}",
+      "name": "unmatched end",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{else}}",
+      "name": "unmatched else",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{if .X}}hello{{end}}{{else}}",
+      "name": "unmatched else after if",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{if .X}}1{{else}}2{{else}}3{{end}}",
+      "name": "multiple else",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "hello{{range .x}}",
+      "name": "missing end",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "hello{{range .x}}{{else}}",
+      "name": "missing end after else",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "hello{{undefined}}",
+      "name": "undefined function",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x}}",
+      "name": "undefined variable",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{with $x := 4}}{{end}}{{$x}}",
+      "name": "variable undefined after end",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{template $v}}",
+      "name": "variable undefined in template",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{with $x.Y := 4}}{{end}}",
+      "name": "declare with field",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{template .X}}",
+      "name": "template with field ref",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{template $v}}",
+      "name": "template with var",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{printf 3, 4}}",
+      "name": "invalid punctuation",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{with $v, $u := 3}}{{end}}",
+      "name": "multidecl outside range",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range $u, $v, $w := 3}}{{end}}",
+      "name": "too many decls in range",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{printf (printf .).}}",
+      "name": "dot applied to parentheses",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{printf 3`x`}}",
+      "name": "adjacent args",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{printf `x`.}}",
+      "name": "adjacent args with .",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{if .X}}a{{else if .Y}}b{{end}}{{end}}",
+      "name": "extra end after if",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range .}}{{end}} {{break}}",
+      "name": "break outside range",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range .}}{{end}} {{continue}}",
+      "name": "continue outside range",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range .}}{{else}}{{break}}{{end}}",
+      "name": "break in range else",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range .}}{{else}}{{continue}}{{end}}",
+      "name": "continue in range else",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x := 0}}{{$x}}",
+      "name": "bug0a",
+      "ok": true,
+      "result": "{{$x := 0}}{{$x}}"
+    },
+    {
+      "input": "{{$x += 1}}{{$x}}",
+      "name": "bug0b",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x ! 2}}{{$x}}",
+      "name": "bug0c",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x % 3}}{{$x}}",
+      "name": "bug0d",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{range $x := $y := 3}}{{end}}",
+      "name": "bug0e",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x:=.}}{{$x!2}}",
+      "name": "bug1a",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x:=.}}{{$x+2}}",
+      "name": "bug1b",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{$x:=.}}{{$x +2}}",
+      "name": "bug1c",
+      "ok": true,
+      "result": "{{$x := .}}{{$x +2}}"
+    },
+    {
+      "input": "{{range $x := 0}}{{$x}}{{end}}",
+      "name": "bug2a",
+      "ok": true,
+      "result": "{{range $x := 0}}{{$x}}{{end}}"
+    },
+    {
+      "input": "{{range $x = 0}}{{$x}}{{end}}",
+      "name": "bug2b",
+      "ok": true,
+      "result": "{{range $x = 0}}{{$x}}{{end}}"
+    },
+    {
+      "input": "{{1.E}}",
+      "name": "dot after integer",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{0.1.E}}",
+      "name": "dot after float",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{true.E}}",
+      "name": "dot after boolean",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{'a'.any}}",
+      "name": "dot after char",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{\"hello\".guys}}",
+      "name": "dot after string",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{..E}}",
+      "name": "dot after dot",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{nil.E}}",
+      "name": "dot after nil",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{12|.}}",
+      "name": "wrong pipeline dot",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{.|12|printf}}",
+      "name": "wrong pipeline number",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{.|printf|\"error\"}}",
+      "name": "wrong pipeline string",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{12|printf|'e'}}",
+      "name": "wrong pipeline char",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{.|true}}",
+      "name": "wrong pipeline boolean",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{'c'|nil}}",
+      "name": "wrong pipeline nil",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{printf \"%d\" ( ) }}",
+      "name": "empty pipeline",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{block \"foo\"}}hello{{end}}",
+      "name": "block definition",
+      "ok": false,
+      "result": ""
+    },
+    {
+      "input": "{{ (( 1 )) }}",
+      "name": "paren nesting normal",
+      "ok": true,
+      "result": "{{((1))}}"
+    },
+    {
+      "input": "{{ ((( 1 ))) }}",
+      "name": "paren nesting at limit",
+      "ok": true,
+      "result": "{{(((1)))}}"
+    },
+    {
+      "input": "{{ (((( 1 )))) }}",
+      "name": "paren nesting exceeds limit",
+      "ok": false,
+      "result": "template: test:1: max expression depth exceeded"
+    },
+    {
+      "input": "{{ ((( 1 ))) | printf }}",
+      "name": "paren nesting in pipeline",
+      "ok": true,
+      "result": "{{(((1))) | printf}}"
+    },
+    {
+      "input": "{{ (((( 1 )))) | printf }}",
+      "name": "paren nesting in pipeline exceeds limit",
+      "ok": false,
+      "result": "template: test:1: max expression depth exceeded"
+    },
+    {
+      "input": "{{ if ((( true ))) }}YES{{ end }}",
+      "name": "paren nesting with other constructs",
+      "ok": true,
+      "result": "{{if (((true)))}}\"YES\"{{end}}"
+    },
+    {
+      "input": "{{ if (((( true )))) }}YES{{ end }}",
+      "name": "paren nesting with other constructs exceeds limit",
+      "ok": false,
+      "result": "template: test:1: max expression depth exceeded"
+    }
+  ],
+  "positions": [
+    {
+      "input": "",
+      "items": [
+        {
+          "line": 1,
+          "pos": 0,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "empty"
+    },
+    {
+      "input": "{{,@%#}}",
+      "items": [
+        {
+          "line": 1,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 1,
+          "pos": 2,
+          "type": "char",
+          "value": ","
+        },
+        {
+          "line": 1,
+          "pos": 3,
+          "type": "char",
+          "value": "@"
+        },
+        {
+          "line": 1,
+          "pos": 4,
+          "type": "char",
+          "value": "%"
+        },
+        {
+          "line": 1,
+          "pos": 5,
+          "type": "char",
+          "value": "#"
+        },
+        {
+          "line": 1,
+          "pos": 6,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 1,
+          "pos": 8,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "punctuation"
+    },
+    {
+      "input": "0123{{hello}}xyz",
+      "items": [
+        {
+          "line": 1,
+          "pos": 0,
+          "type": "item20",
+          "value": "0123"
+        },
+        {
+          "line": 1,
+          "pos": 4,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 1,
+          "pos": 6,
+          "type": "identifier",
+          "value": "hello"
+        },
+        {
+          "line": 1,
+          "pos": 11,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 1,
+          "pos": 13,
+          "type": "item20",
+          "value": "xyz"
+        },
+        {
+          "line": 1,
+          "pos": 16,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "sample"
+    },
+    {
+      "input": "{{x -}}\n{{y}}",
+      "items": [
+        {
+          "line": 1,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 1,
+          "pos": 2,
+          "type": "identifier",
+          "value": "x"
+        },
+        {
+          "line": 1,
+          "pos": 5,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 2,
+          "pos": 8,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 2,
+          "pos": 10,
+          "type": "identifier",
+          "value": "y"
+        },
+        {
+          "line": 2,
+          "pos": 11,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 2,
+          "pos": 13,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "trimafter"
+    },
+    {
+      "input": "{{x}}\n{{- y}}",
+      "items": [
+        {
+          "line": 1,
+          "pos": 0,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 1,
+          "pos": 2,
+          "type": "identifier",
+          "value": "x"
+        },
+        {
+          "line": 1,
+          "pos": 3,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 2,
+          "pos": 6,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 2,
+          "pos": 10,
+          "type": "identifier",
+          "value": "y"
+        },
+        {
+          "line": 2,
+          "pos": 11,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 2,
+          "pos": 13,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "trimbefore"
+    },
+    {
+      "input": "{{/*\n*/}}\n{{undefinedFunction \"test\"}}",
+      "items": [
+        {
+          "line": 1,
+          "pos": 2,
+          "type": "comment",
+          "value": "/*\n*/"
+        },
+        {
+          "line": 2,
+          "pos": 9,
+          "type": "item20",
+          "value": "\n"
+        },
+        {
+          "line": 3,
+          "pos": 10,
+          "type": "left delim",
+          "value": "{{"
+        },
+        {
+          "line": 3,
+          "pos": 12,
+          "type": "identifier",
+          "value": "undefinedFunction"
+        },
+        {
+          "line": 3,
+          "pos": 29,
+          "type": "space",
+          "value": " "
+        },
+        {
+          "line": 3,
+          "pos": 30,
+          "type": "string",
+          "value": "\"test\""
+        },
+        {
+          "line": 3,
+          "pos": 36,
+          "type": "right delim",
+          "value": "}}"
+        },
+        {
+          "line": 3,
+          "pos": 38,
+          "type": "EOF",
+          "value": ""
+        }
+      ],
+      "name": "longcomment"
+    }
+  ]
+}

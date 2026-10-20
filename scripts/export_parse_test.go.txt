@@ -1,0 +1,6 @@
+package parse
+import("encoding/json";"os";"testing";"fmt")
+func TestExportTS(t *testing.T){tables:=map[string]any{};for name,table:=range map[string][]parseTest{"parse":parseTests,"errors":errorTests}{out:=[]any{};for _,v:=range table{out=append(out,map[string]any{"name":v.name,"input":v.input,"ok":v.ok,"result":v.result})};tables[name]=out};nums:=[]any{};for _,v:=range numberTests{nums=append(nums,map[string]any{"text":v.text,"isInt":v.isInt,"isUint":v.isUint,"isFloat":v.isFloat,"isComplex":v.isComplex,"int":fmt.Sprint(v.int64),"uint":fmt.Sprint(v.uint64),"float":v.float64,"complex":[]float64{real(v.complex128),imag(v.complex128)}})};tables["numbers"]=nums
+ for name,table:=range map[string][]lexTest{"lex":lexTests,"delims":lexDelimTests,"positions":lexPosTests}{out:=[]any{};for _,v:=range table{items:=[]any{};for _,x:=range v.items{items=append(items,map[string]any{"type":fmt.Sprint(x.typ),"value":x.val,"pos":int(x.pos),"line":x.line})};out=append(out,map[string]any{"name":v.name,"input":v.input,"items":items})};tables[name]=out}
+ b,e:=json.MarshalIndent(tables,"","  ");if e!=nil{t.Fatal(e)};if e=os.WriteFile(os.Getenv("TS_FIXTURES")+"/parse.json",b,0644);e!=nil{t.Fatal(e)}
+}

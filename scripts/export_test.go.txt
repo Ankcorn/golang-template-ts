@@ -1,0 +1,29 @@
+package template
+import("unsafe";"encoding/json";"os";"reflect";"fmt";"strings";"testing")
+func encodeValue(v reflect.Value, depth int) any {
+ if !v.IsValid(){return nil};if !v.CanInterface()&&v.CanAddr(){v=reflect.NewAt(v.Type(),unsafe.Pointer(v.UnsafeAddr())).Elem()}; if depth>12{return nil}
+ t:=v.Type(); k:=v.Kind(); m:=map[string]any{"type":t.String(),"kind":k.String()}
+ if k==reflect.Interface {if v.IsNil(){m["nil"]=true;return m};m["value"]=encodeValue(v.Elem(),depth+1);return m}
+ if k==reflect.Pointer||k==reflect.Map||k==reflect.Slice||k==reflect.Func||k==reflect.Chan||k==reflect.UnsafePointer {if v.IsNil(){m["nil"]=true;return m}}
+ switch k {
+ case reflect.Pointer:m["value"]=encodeValue(v.Elem(),depth+1)
+ case reflect.Struct: fields:=map[string]any{};order:=[]string{};for i:=0;i<v.NumField();i++{f:=t.Field(i);fields[f.Name]=encodeValue(v.Field(i),depth+1);order=append(order,f.Name)};m["value"]=fields;m["order"]=order
+ case reflect.Map: entries:=[]any{};it:=v.MapRange();for it.Next(){entries=append(entries,[]any{encodeValue(it.Key(),depth+1),encodeValue(it.Value(),depth+1)})};m["value"]=entries;m["keyType"]=t.Key().String();m["elemType"]=t.Elem().String()
+ case reflect.Slice,reflect.Array: a:=[]any{};for i:=0;i<v.Len();i++{a=append(a,encodeValue(v.Index(i),depth+1))};m["value"]=a;m["cap"]=v.Cap()
+ case reflect.Chan: a:=[]any{};for{item,ok:=v.TryRecv();if !ok{break};a=append(a,encodeValue(item,depth+1))};m["value"]=a
+ case reflect.Func:if strings.HasPrefix(t.String(),"iter.Seq") {a:=[]any{};cb:=reflect.MakeFunc(t.In(0),func(args []reflect.Value)[]reflect.Value{entry:=[]any{};for _,v:=range args{entry=append(entry,encodeValue(v,depth+1))};a=append(a,entry);return []reflect.Value{reflect.ValueOf(true)}});v.Call([]reflect.Value{cb});m["value"]=a;m["kind"]="iterator"} else {args:=[]string{};for i:=0;i<t.NumIn();i++{args=append(args,t.In(i).String())};m["args"]=args;m["variadic"]=t.IsVariadic();m["returns"]=t.NumOut();if t.NumOut()>1{m["secondReturn"]=t.Out(1).String()}}
+ case reflect.String:m["value"]=v.String()
+ case reflect.Bool:m["value"]=v.Bool()
+ case reflect.Int,reflect.Int8,reflect.Int16,reflect.Int32,reflect.Int64:m["value"]=fmt.Sprint(v.Int())
+ case reflect.Uint,reflect.Uint8,reflect.Uint16,reflect.Uint32,reflect.Uint64,reflect.Uintptr:m["value"]=fmt.Sprint(v.Uint())
+ case reflect.Float32,reflect.Float64:m["value"]=v.Float()
+ case reflect.Complex64,reflect.Complex128:m["value"]=[]float64{real(v.Complex()),imag(v.Complex())}
+ }
+ if v.CanInterface(){if s,ok:=v.Interface().(fmt.Stringer);ok {m["string"]=s.String()} else if e,ok:=v.Interface().(error);ok{m["string"]=e.Error()}}
+ return m
+}
+func TestExportTS(t *testing.T){out:=[]any{};for _,v:=range execTests{out=append(out,map[string]any{"name":v.name,"input":v.input,"output":v.output,"ok":v.ok,"data":encodeValue(reflect.ValueOf(v.data),0)})};b,e:=json.MarshalIndent(out,"","  ");if e!=nil{t.Fatal(e)};if e=os.WriteFile(os.Getenv("TS_FIXTURES")+"/exec.json",b,0644);e!=nil{t.Fatal(e)}
+ cmp:=[]any{};for _,v:=range cmpTests{cmp=append(cmp,map[string]any{"expr":v.expr,"truth":v.truth,"ok":v.ok})};b,_=json.MarshalIndent(cmp,"","  ");_ = os.WriteFile(os.Getenv("TS_FIXTURES")+"/comparison.json",b,0644)
+}
+
+func TestExportMultiTS(t *testing.T){out:=[]any{};for _,v:=range multiExecTests{out=append(out,map[string]any{"name":v.name,"input":v.input,"output":v.output,"ok":v.ok,"data":encodeValue(reflect.ValueOf(v.data),0)})};p:=[]any{};for _,v:=range multiParseTests{p=append(p,map[string]any{"name":v.name,"input":v.input,"ok":v.ok,"names":v.names,"results":v.results})};b,_:=json.MarshalIndent(map[string]any{"exec":out,"parse":p,"sources":[]string{multiText1,multiText2}},"","  ");if e:=os.WriteFile(os.Getenv("TS_FIXTURES")+"/multi.json",b,0644);e!=nil{t.Fatal(e)}}

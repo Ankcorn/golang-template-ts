@@ -1,0 +1,150 @@
+{
+  "exec": [
+    {
+      "data": null,
+      "input": "",
+      "name": "empty",
+      "ok": true,
+      "output": ""
+    },
+    {
+      "data": null,
+      "input": "some text",
+      "name": "text",
+      "ok": true,
+      "output": "some text"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"x\" .SI}}",
+      "name": "invoke x",
+      "ok": true,
+      "output": "TEXT"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"x\"}}",
+      "name": "invoke x no args",
+      "ok": true,
+      "output": "TEXT"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"dot\" .I}}",
+      "name": "invoke dot int",
+      "ok": true,
+      "output": "17"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"dot\" .SI}}",
+      "name": "invoke dot []int",
+      "ok": true,
+      "output": "[3 4 5]"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"dotV\" .U}}",
+      "name": "invoke dotV",
+      "ok": true,
+      "output": "v"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"nested\" .I}}",
+      "name": "invoke nested int",
+      "ok": true,
+      "output": "17"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{template \"nested\" $x:=.SI}},{{index $x 1}}",
+      "name": "variable declared by template",
+      "ok": true,
+      "output": "[3 4 5],4"
+    },
+    {
+      "data": {
+        "$fixture": "45ba59707312d201"
+      },
+      "input": "{{oneArg \"joe\"}}",
+      "name": "testFunc literal",
+      "ok": true,
+      "output": "oneArg=joe"
+    },
+    {
+      "data": {
+        "$fixture": "05297507da40769e"
+      },
+      "input": "{{oneArg .}}",
+      "name": "testFunc .",
+      "ok": true,
+      "output": "oneArg=joe"
+    }
+  ],
+  "parse": [
+    {
+      "input": "",
+      "name": "empty",
+      "names": null,
+      "ok": true,
+      "results": null
+    },
+    {
+      "input": "{{define \"foo\"}} FOO {{end}}",
+      "name": "one",
+      "names": [
+        "foo"
+      ],
+      "ok": true,
+      "results": [
+        " FOO "
+      ]
+    },
+    {
+      "input": "{{define \"foo\"}} FOO {{end}}{{define \"bar\"}} BAR {{end}}",
+      "name": "two",
+      "names": [
+        "foo",
+        "bar"
+      ],
+      "ok": true,
+      "results": [
+        " FOO ",
+        " BAR "
+      ]
+    },
+    {
+      "input": "{{define \"foo\"}} FOO ",
+      "name": "missing end",
+      "names": null,
+      "ok": false,
+      "results": null
+    },
+    {
+      "input": "{{define \"foo}} FOO ",
+      "name": "malformed name",
+      "names": null,
+      "ok": false,
+      "results": null
+    }
+  ],
+  "sources": [
+    "\n\t{{define \"x\"}}TEXT{{end}}\n\t{{define \"dotV\"}}{{.V}}{{end}}\n",
+    "\n\t{{define \"dot\"}}{{.}}{{end}}\n\t{{define \"nested\"}}{{template \"dot\" .}}{{end}}\n"
+  ]
+}

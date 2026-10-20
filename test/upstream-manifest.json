@@ -1,0 +1,376 @@
+{
+  "goVersion": "1.27.3",
+  "source": "https://github.com/golang/go/tree/go1.27.3/src/text/template",
+  "archiveSHA256": "dd3908cf20959d798c1e06ebe5b72213f0505ce01373b40ce3110975a6cd99c2",
+  "sources": {
+    "example_test.go": "4596120539c80a9d04eb68c886fdfec7b9667d6860b51dd61be899621683bacf",
+    "examplefiles_test.go": "6dee2618876ca7e96bb8a12641aa5ceee72157b9b281501513948f0874658337",
+    "examplefunc_test.go": "1a5dfa8e09be6a1d8bf0108217873dfa611bafbc28ddb17983a9652b83c2dde3",
+    "exec_test.go": "c05cc4721d16f543b78431711c985918fbeffeb5fb4f99e48d2e92655e4d7d0b",
+    "link_test.go": "efa62d349ed4d012226ef682c9387c23099c51c1ce34e6f01d649b28f2f23b9b",
+    "multi_test.go": "4bacdd01f35a19bae7a8d334af06a159fb34ec040a6ba5697bc7b413130a91d6",
+    "parse/lex_test.go": "34435c1485c3c48dac3b3b41c2d80c5435de65dab7130d90b2fc183b280df9d0",
+    "parse/parse_test.go": "4e355963d9cf59595e91e032c3afada9a9448363e95d90042cdc6cf5747532ec"
+  },
+  "tests": {
+    "example_test.go:ExampleTemplate": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate"
+    },
+    "example_test.go:ExampleTemplate_block": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_block"
+    },
+    "examplefiles_test.go:ExampleTemplate_glob": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_glob"
+    },
+    "examplefiles_test.go:ExampleTemplate_helpers": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_helpers"
+    },
+    "examplefiles_test.go:ExampleTemplate_share": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_share"
+    },
+    "examplefunc_test.go:ExampleTemplate_func": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_func"
+    },
+    "examplefunc_test.go:ExampleTemplate_funcs": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_funcs"
+    },
+    "examplefunc_test.go:ExampleTemplate_if": {
+      "status": "adapted",
+      "file": "test/upstream-examples.test.ts",
+      "marker": "ExampleTemplate_if"
+    },
+    "exec_test.go:TestExecute": {
+      "status": "adapted",
+      "file": "test/upstream-exec.test.ts",
+      "marker": "upstream exec"
+    },
+    "exec_test.go:TestDelims": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestDelims"
+    },
+    "exec_test.go:TestExecuteError": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestExecuteError"
+    },
+    "exec_test.go:TestExecError": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestExecError"
+    },
+    "exec_test.go:TestExecError_CustomError": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestExecError_CustomError"
+    },
+    "exec_test.go:TestJSEscaping": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "TestJSEscaping"
+    },
+    "exec_test.go:TestTree": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestTree"
+    },
+    "exec_test.go:TestExecuteOnNewTemplate": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestExecuteOnNewTemplate"
+    },
+    "exec_test.go:TestMessageForExecuteEmpty": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestMessageForExecuteEmpty"
+    },
+    "exec_test.go:TestFinalForPrintf": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestFinalForPrintf"
+    },
+    "exec_test.go:TestComparison": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream comparison"
+    },
+    "exec_test.go:TestMissingMapKey": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestMissingMapKey"
+    },
+    "exec_test.go:TestUnterminatedStringError": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestUnterminatedStringError"
+    },
+    "exec_test.go:TestExecuteGivesExecError": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestExecuteGivesExecError"
+    },
+    "exec_test.go:TestGoodFuncNames": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestGoodFuncNames"
+    },
+    "exec_test.go:TestBadFuncNames": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestBadFuncNames"
+    },
+    "exec_test.go:TestIsTrue": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "TestIsTrue"
+    },
+    "exec_test.go:TestBlock": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestBlock"
+    },
+    "exec_test.go:TestEvalFieldErrors": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "TestEvalFieldErrors"
+    },
+    "exec_test.go:TestMaxExecDepth": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestMaxExecDepth"
+    },
+    "exec_test.go:TestAddrOfIndex": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestAddrOfIndex"
+    },
+    "exec_test.go:TestInterfaceValues": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "TestInterfaceValues"
+    },
+    "exec_test.go:TestExecutePanicDuringCall": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "c.wantErr"
+    },
+    "exec_test.go:TestFunctionCheckDuringCall": {
+      "status": "adapted",
+      "file": "test/upstream-locals.test.ts",
+      "marker": "c.wantErr"
+    },
+    "exec_test.go:TestIssue31810": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIssue31810"
+    },
+    "exec_test.go:TestIssue43065": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIssue43065"
+    },
+    "exec_test.go:TestIssue39807": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIssue39807"
+    },
+    "exec_test.go:TestIssue48215": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIssue48215"
+    },
+    "link_test.go:TestLinkerGC": {
+      "status": "go-only",
+      "reason": "Builds a Go executable and checks Go linker dead-code elimination; does not execute template semantics."
+    },
+    "multi_test.go:TestMultiParse": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream multi parse"
+    },
+    "multi_test.go:TestMultiExecute": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream multi execute"
+    },
+    "multi_test.go:TestParseFiles": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseFiles/Glob/FS"
+    },
+    "multi_test.go:TestParseGlob": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseFiles/Glob/FS"
+    },
+    "multi_test.go:TestParseFS": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseFiles/Glob/FS"
+    },
+    "multi_test.go:TestParseFilesWithData": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseFiles/GlobWithData"
+    },
+    "multi_test.go:TestParseGlobWithData": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseFiles/GlobWithData"
+    },
+    "multi_test.go:TestClone": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestClone"
+    },
+    "multi_test.go:TestAddParseTree": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestAddParseTree"
+    },
+    "multi_test.go:TestAddParseTreeToUnparsedTemplate": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestAddParseTreeToUnparsedTemplate"
+    },
+    "multi_test.go:TestRedefinition": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestRedefinition"
+    },
+    "multi_test.go:TestEmptyTemplateCloneCrash": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestEmptyTemplateCloneCrash"
+    },
+    "multi_test.go:TestTemplateLookUp": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestTemplateLookUp"
+    },
+    "multi_test.go:TestNew": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestNew"
+    },
+    "multi_test.go:TestParse": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParse"
+    },
+    "multi_test.go:TestEmptyTemplate": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestEmptyTemplate"
+    },
+    "multi_test.go:TestIssue19294": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIssue19294"
+    },
+    "multi_test.go:TestAddToZeroTemplate": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestAddToZeroTemplate"
+    },
+    "parse/lex_test.go:TestLex": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "fixtures[table]"
+    },
+    "parse/lex_test.go:TestDelims": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "fixtures[table]"
+    },
+    "parse/lex_test.go:TestDelimsAlphaNumeric": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "TestDelimsAlphaNumeric"
+    },
+    "parse/lex_test.go:TestDelimsAndMarkers": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "TestDelimsAndMarkers"
+    },
+    "parse/lex_test.go:TestPos": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "fixtures[table]"
+    },
+    "parse/parse_test.go:TestNumberParse": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream number"
+    },
+    "parse/parse_test.go:TestParse": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream parse"
+    },
+    "parse/parse_test.go:TestParseCopy": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream parse"
+    },
+    "parse/parse_test.go:TestParseWithComments": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestParseWithComments"
+    },
+    "parse/parse_test.go:TestDelimsStringRoundtrip": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestDelimsStringRoundtrip"
+    },
+    "parse/parse_test.go:TestKeywordsAndFuncs": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestKeywordsAndFuncs"
+    },
+    "parse/parse_test.go:TestSkipFuncCheck": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestSkipFuncCheck"
+    },
+    "parse/parse_test.go:TestIsEmpty": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestIsEmpty"
+    },
+    "parse/parse_test.go:TestErrorContextWithTreeCopy": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestErrorContextWithTreeCopy"
+    },
+    "parse/parse_test.go:TestErrors": {
+      "status": "adapted",
+      "file": "test/upstream-parse.test.ts",
+      "marker": "upstream error"
+    },
+    "parse/parse_test.go:TestBlock": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestBlock"
+    },
+    "parse/parse_test.go:TestLineNum": {
+      "status": "adapted",
+      "file": "test/upstream-api.test.ts",
+      "marker": "TestLineNum"
+    }
+  }
+}

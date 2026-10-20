@@ -1,0 +1,587 @@
+[
+  {
+    "expr": "eq true true",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq true false",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq 1+2i 1+2i",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq 1+2i 1+3i",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq 1.5 1.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq 1.5 2.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq 1 1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq 1 2",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq `xy` `xy`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq `xy` `xyz`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .Uthree .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Uthree .Ufour",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq 3 4 5 6 3",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq 3 4 5 6 7",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne true true",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne true false",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne 1+2i 1+2i",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne 1+2i 1+3i",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne 1.5 1.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne 1.5 2.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne 1 1",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne 1 2",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne `xy` `xy`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne `xy` `xyz`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne .Uthree .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne .Uthree .Ufour",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt 1.5 1.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt 1.5 2.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt 1 1",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt 1 2",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt `xy` `xy`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt `xy` `xyz`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt .Uthree .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt .Uthree .Ufour",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le 1.5 1.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le 1.5 2.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le 2.5 1.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "le 1 1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le 1 2",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le 2 1",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "le `xy` `xy`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le `xy` `xyz`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le `xyz` `xy`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "le .Uthree .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le .Uthree .Ufour",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le .Ufour .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt 1.5 1.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt 1.5 2.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt 1 1",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt 2 1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "gt 1 2",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt `xy` `xy`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt `xy` `xyz`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Uthree .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Uthree .Ufour",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Ufour .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge 1.5 1.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge 1.5 2.5",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ge 2.5 1.5",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge 1 1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge 1 2",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ge 2 1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge `xy` `xy`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge `xy` `xyz`",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ge `xyz` `xy`",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge .Uthree .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge .Uthree .Ufour",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ge .Ufour .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Uthree .Three",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Three .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le .Uthree .Three",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le .Three .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge .Uthree .Three",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge .Three .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt .Uthree .Three",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt .Three .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Uthree .Three",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Three .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .Ufour .Three",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "lt .Ufour .Three",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Ufour .Three",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .NegOne .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .Uthree .NegOne",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ne .NegOne .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ne .Uthree .NegOne",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt .NegOne .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "lt .Uthree .NegOne",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "le .NegOne .Uthree",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "le .Uthree .NegOne",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .NegOne .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "gt .Uthree .NegOne",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "ge .NegOne .Uthree",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "ge .Uthree .NegOne",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq (index `x` 0) 'x'",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq (index `x` 0) 'y'",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .V1 .V2",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Ptr .Ptr",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Ptr .NilPtr",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .NilPtr .NilPtr",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Iface1 .Iface1",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Iface1 .NilIface",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .NilIface .NilIface",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .NilIface .Iface1",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .NilIface 0",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq 0 .NilIface",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq .Map .Map",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Map nil",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq nil .Map",
+    "ok": true,
+    "truth": "true"
+  },
+  {
+    "expr": "eq .Map .NonNilMap",
+    "ok": true,
+    "truth": "false"
+  },
+  {
+    "expr": "eq `xy` 1",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "eq 2 2.0",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "lt true true",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "lt 1+0i 1+0i",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "eq .Ptr 1",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "eq .Ptr .NegOne",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "eq .Map .V1",
+    "ok": false,
+    "truth": ""
+  },
+  {
+    "expr": "eq .NonNilMap .NonNilMap",
+    "ok": false,
+    "truth": ""
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "name": "golang-template-ts",
+  "version": "0.1.0",
+  "description": "TypeScript implementation of Go text/template",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc -p tsconfig.test.json",
+    "test": "tsx --test test/*.test.ts",
+    "test:upstream": "npm test",
+    "test:differential": "tsx scripts/differential.ts",
+    "test:go": "sh scripts/test-go.sh",
+    "audit:upstream": "node scripts/audit-upstream.mjs",
+    "fixtures": "sh scripts/export-fixtures.sh",
+    "check": "npm run build && npm run typecheck && npm run audit:upstream && npm test"
+  },
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ankcorn/golang-template-ts.git"
+  }
+}

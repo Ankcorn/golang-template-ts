@@ -1,0 +1,1090 @@
+{
+  "TestEvalFieldErrors": [
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "MissingFieldOnNil"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.MissingField}}"
+      },
+      "value": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "can't evaluate field MissingField in type *template.T"
+      }
+    },
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "MissingFieldOnNonNil"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.MissingField}}"
+      },
+      "value": {
+        "$fixture": "7be3f1203cffb1d3"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "can't evaluate field MissingField in type *template.T"
+      }
+    },
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "ExistingFieldOnNil"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.X}}"
+      },
+      "value": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "nil pointer evaluating *template.T.X"
+      }
+    },
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "MissingKeyOnNilMap"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.MissingKey}}"
+      },
+      "value": {
+        "$fixture": "d005cc6373992ad1"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "nil pointer evaluating *map[string]string.MissingKey"
+      }
+    },
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "MissingKeyOnNilMapPtr"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.MissingKey}}"
+      },
+      "value": {
+        "$fixture": "d005cc6373992ad1"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "nil pointer evaluating *map[string]string.MissingKey"
+      }
+    },
+    {
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "MissingKeyOnMapPtrToNil"
+      },
+      "src": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.MissingKey}}"
+      },
+      "value": {
+        "$fixture": "6d00055a485c8a0b"
+      },
+      "want": {
+        "kind": "string",
+        "type": "string",
+        "value": "<nil>"
+      }
+    }
+  ],
+  "TestExecutePanicDuringCall": [
+    {
+      "data": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{doPanic}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "direct func call panics"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:2: executing \"t\" at <doPanic>: error calling doPanic: custom panic string"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call doPanic}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "indirect func call panics"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:7: executing \"t\" at <doPanic>: error calling doPanic: custom panic string"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.GetU}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "direct method call panics"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:2: executing \"t\" at <.GetU>: error calling GetU: runtime error: invalid memory address or nil pointer dereference"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "2fc4440b9108e1a3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .GetU}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "indirect method call panics"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:7: executing \"t\" at <.GetU>: error calling GetU: runtime error: invalid memory address or nil pointer dereference"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .PanicFunc}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "func field call panics"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:2: executing \"t\" at <call .PanicFunc>: error calling call: test panic"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{.NonEmptyInterfaceNil.Method0}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "method call on nil interface"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "template: t:1:23: executing \"t\" at <.NonEmptyInterfaceNil.Method0>: nil pointer evaluating template.I.Method0"
+      }
+    }
+  ],
+  "TestFunctionCheckDuringCall": [
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call nothing"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "wrong number of args for call: want at least 1 got 0"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .True}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call non-function"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: non-function .True of type bool"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .BinaryFunc 1}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call func with wrong argument"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: wrong number of args for .BinaryFunc: got 1 want 2"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .VariadicFuncInt}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call variadic func with wrong argument"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: wrong number of args for .VariadicFuncInt: got 0 want at least 1"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .TooFewReturnCountFunc}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call too few return number func"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: function .TooFewReturnCountFunc has 0 return values; should be 1 or 2"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .TooManyReturnCountFunc}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call too many return number func"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: function .TooManyReturnCountFunc has 3 return values; should be 1 or 2"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "73b8caf79e3fcbc3"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .InvalidReturnTypeFunc}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call invalid return type func"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: invalid function signature for .InvalidReturnTypeFunc: second return value should be error; is bool"
+      }
+    },
+    {
+      "data": {
+        "$fixture": "45a9bb967d67ddf1"
+      },
+      "input": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call (len \"test\")}}"
+      },
+      "name": {
+        "kind": "string",
+        "type": "string",
+        "value": "call pipeline"
+      },
+      "wantErr": {
+        "kind": "string",
+        "type": "string",
+        "value": "error calling call: non-function len \"test\" of type int"
+      }
+    }
+  ],
+  "TestInterfaceValues": [
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "ERROR: index of untyped nil"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{index .Nil 1}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "2"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{index .Slice 2}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "2"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{index .Slice .Two}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "ERROR: call of nil"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .Nil 1}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "2"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .PlusOne 1}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "2"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{call .PlusOne .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "0"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{and (index .Slice 0) true}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "0"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{and .Zero true}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{and (index .Slice 1) false}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{and .One false}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{or (index .Slice 0) false}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{or .Zero false}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "1"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{or (index .Slice 1) true}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "1"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{or .One true}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{not (index .Slice 0)}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{not .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{not (index .Slice 1)}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{not .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{eq (index .Slice 0) .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{eq (index .Slice 1) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{ne (index .Slice 0) .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{ne (index .Slice 1) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{ge (index .Slice 0) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{ge (index .Slice 1) .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{gt (index .Slice 0) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{gt (index .Slice 1) .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{le (index .Slice 0) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{le (index .Slice 1) .Zero}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "true"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{lt (index .Slice 0) .One}}"
+      }
+    },
+    {
+      "out": {
+        "kind": "string",
+        "type": "string",
+        "value": "false"
+      },
+      "text": {
+        "kind": "string",
+        "type": "string",
+        "value": "{{lt (index .Slice 1) .Zero}}"
+      }
+    }
+  ],
+  "TestIsTrue": [
+    {
+      "v": {
+        "$fixture": "ce3a431fafc23108"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "23d91c24003c8795"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "cd77144a753c34b7"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "02d7c0fe33d05218"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "c200ec0f29f86ba0"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "be4980767d13676a"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "5aa0a8b5116270f2"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "be88ace316f1aead"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "cd3834cdd400566a"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "c252220942adef43"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "452aa2931adb95d2"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "7c9d3ff0999eaf2e"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "404de796c56473c3"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "24654ecec3a9e446"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "a3dab4aa32a3710d"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "a2a74556cc57c3f0"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "5fcc6079582f6360"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "f8495856c724cea4"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "cc22fa89933e03bf"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "7eff62f8720d118b"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "v": {
+        "$fixture": "1a2fe3c8eafff337"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "v": {
+        "$fixture": "96a6fed68707ae54"
+      },
+      "want": {
+        "kind": "bool",
+        "type": "bool",
+        "value": false
+      }
+    }
+  ],
+  "TestJSEscaping": [
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "a"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "a"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "\\'foo"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "'foo"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "Go \\\"jump\\\" \\\\"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "Go \"jump\" \\"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "Yukihiro says \\\"今日は世界\\\""
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "Yukihiro says \"今日は世界\""
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "unprintable \\uFFFE"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "unprintable ￾"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "\\u003Chtml\\u003E"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "<html>"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "no \\u003D in attributes"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "no = in attributes"
+      }
+    },
+    {
+      "exp": {
+        "kind": "string",
+        "type": "string",
+        "value": "\\u0026#x27; does not become HTML entity"
+      },
+      "in": {
+        "kind": "string",
+        "type": "string",
+        "value": "&#x27; does not become HTML entity"
+      }
+    }
+  ]
+}
