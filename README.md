@@ -36,7 +36,8 @@ Ordinary objects represent string-keyed maps. For Go distinctions that JavaScrip
 
 ```sh
 npm ci
-npm run check                 # build, typecheck, upstream inventory audit, 894 tests
+npm run check                 # build, typecheck, upstream inventory audit, 956 tests
+npm run test:glob             # compare in-memory globs with Go (requires Go)
 npm run test:upstream         # run TypeScript against the adapted upstream expectations
 npm run test:differential     # requires Go: 1,344 cases compared with a live Go reference
 ```
@@ -62,13 +63,13 @@ Fixture extraction temporarily adds test-only export files under `GOROOT/src/tex
 
 ## Compatibility boundaries
 
-The current evidence is **894 passing tests (872 adapted upstream tests plus 22 filesystem regressions) and 1,344 passing differential cases**, not unrestricted Go equivalence. The main template language is implemented, but the following gaps remain:
+The current evidence is **956 passing tests, 1,344 template differential cases, and 1,111 in-memory glob differential cases**, not unrestricted Go equivalence. The main template language is implemented, but the following gaps remain:
 
 | Area | Current limitation | Concrete example or consequence |
 | --- | --- | --- |
 | Formatting | `printf` is not a complete implementation of Go's `fmt` behavior. | `{{printf "%g" 1000000.0}}` produces `1000000`; Go produces `1e+06`. Other formatting flags, custom `fmt.Formatter` implementations, and combinations of argument indexing are not fully supported or verified. |
 | 64-bit function arguments | Typed callbacks convert integer arguments to JavaScript numbers by default, which can lose precision. | An identity callback registered with `func(x => x, ['int'])` turns `9007199254740993` into `9007199254740992`. Use `{ raw: true }` to retain typed argument values and their `bigint` payloads. |
-| Filesystem parsing | Node filesystem behavior and the in-memory adapter do not reproduce the complete Go `io/fs` interface. | Standalone `ParseFS` selects the first matched file as its execution template. In-memory glob patterns support `*`, `?`, character classes, ranges, negation, and escapes. |
+| Filesystem parsing | `ParseFiles` and `ParseGlob` use Node filesystem behavior; `ParseGlob` uses Node glob syntax, not Go `filepath.Glob` semantics. | Differences such as dotfile matching and recursive `**` follow Node. In-memory `ParseFS` uses Go-style glob syntax and directory traversal; custom filesystem adapters supply their own `glob` behavior. This is not a complete Go `io/fs` implementation. |
 | Channels and iterators | Currently represented as stored synchronous sequences. | Live channels, blocking receives, goroutines, and lazy generator execution are not implemented. |
 | Go type semantics | Reflection, pointer identity, method sets, and type checking are only partially reproduced through explicit typed wrappers. | Ordinary JavaScript values and callbacks do not carry Go's type metadata; wrappers cover the distinctions exercised by the adapted tests, not every Go reflection behavior. |
 | Byte strings | JavaScript strings represent Unicode text rather than arbitrary Go string bytes. | Invalid UTF-8 and byte slices that split a multibyte character can produce different results from Go. |

@@ -1,0 +1,93 @@
+[
+  { "error": false, "match": true, "name": "abc", "pattern": "abc" },
+  { "error": false, "match": true, "name": "abc", "pattern": "*" },
+  { "error": false, "match": true, "name": "abc", "pattern": "*c" },
+  { "error": false, "match": true, "name": "a", "pattern": "a*" },
+  { "error": false, "match": true, "name": "abc", "pattern": "a*" },
+  { "error": false, "match": false, "name": "ab/c", "pattern": "a*" },
+  { "error": false, "match": true, "name": "abc/b", "pattern": "a*/b" },
+  { "error": false, "match": false, "name": "a/c/b", "pattern": "a*/b" },
+  {
+    "error": false,
+    "match": true,
+    "name": "axbxcxdxe/f",
+    "pattern": "a*b*c*d*e*/f"
+  },
+  {
+    "error": false,
+    "match": true,
+    "name": "axbxcxdxexxx/f",
+    "pattern": "a*b*c*d*e*/f"
+  },
+  {
+    "error": false,
+    "match": false,
+    "name": "axbxcxdxe/xxx/f",
+    "pattern": "a*b*c*d*e*/f"
+  },
+  {
+    "error": false,
+    "match": false,
+    "name": "axbxcxdxexxx/fff",
+    "pattern": "a*b*c*d*e*/f"
+  },
+  {
+    "error": false,
+    "match": true,
+    "name": "abxbbxdbxebxczzx",
+    "pattern": "a*b?c*x"
+  },
+  {
+    "error": false,
+    "match": false,
+    "name": "abxbbxdbxebxczzy",
+    "pattern": "a*b?c*x"
+  },
+  { "error": false, "match": true, "name": "abc", "pattern": "ab[c]" },
+  { "error": false, "match": true, "name": "abc", "pattern": "ab[b-d]" },
+  { "error": false, "match": false, "name": "abc", "pattern": "ab[e-g]" },
+  { "error": false, "match": false, "name": "abc", "pattern": "ab[^c]" },
+  { "error": false, "match": false, "name": "abc", "pattern": "ab[^b-d]" },
+  { "error": false, "match": true, "name": "abc", "pattern": "ab[^e-g]" },
+  { "error": false, "match": true, "name": "a*b", "pattern": "a\\*b" },
+  { "error": false, "match": false, "name": "ab", "pattern": "a\\*b" },
+  { "error": false, "match": true, "name": "a☺b", "pattern": "a?b" },
+  { "error": false, "match": true, "name": "a☺b", "pattern": "a[^a]b" },
+  { "error": false, "match": false, "name": "a☺b", "pattern": "a???b" },
+  {
+    "error": false,
+    "match": false,
+    "name": "a☺b",
+    "pattern": "a[^a][^a][^a]b"
+  },
+  { "error": false, "match": true, "name": "α", "pattern": "[a-ζ]*" },
+  { "error": false, "match": false, "name": "A", "pattern": "*[a-ζ]" },
+  { "error": false, "match": false, "name": "a/b", "pattern": "a?b" },
+  { "error": false, "match": false, "name": "a/b", "pattern": "a*b" },
+  { "error": false, "match": true, "name": "]", "pattern": "[\\]a]" },
+  { "error": false, "match": true, "name": "-", "pattern": "[\\-]" },
+  { "error": false, "match": true, "name": "x", "pattern": "[x\\-]" },
+  { "error": false, "match": true, "name": "-", "pattern": "[x\\-]" },
+  { "error": false, "match": false, "name": "z", "pattern": "[x\\-]" },
+  { "error": false, "match": true, "name": "x", "pattern": "[\\-x]" },
+  { "error": false, "match": true, "name": "-", "pattern": "[\\-x]" },
+  { "error": false, "match": false, "name": "a", "pattern": "[\\-x]" },
+  { "error": true, "match": false, "name": "]", "pattern": "[]a]" },
+  { "error": true, "match": false, "name": "-", "pattern": "[-]" },
+  { "error": true, "match": false, "name": "x", "pattern": "[x-]" },
+  { "error": true, "match": false, "name": "-", "pattern": "[x-]" },
+  { "error": true, "match": false, "name": "z", "pattern": "[x-]" },
+  { "error": true, "match": false, "name": "x", "pattern": "[-x]" },
+  { "error": true, "match": false, "name": "-", "pattern": "[-x]" },
+  { "error": true, "match": false, "name": "a", "pattern": "[-x]" },
+  { "error": true, "match": false, "name": "a", "pattern": "\\" },
+  { "error": true, "match": false, "name": "a", "pattern": "[a-b-c]" },
+  { "error": true, "match": false, "name": "a", "pattern": "[" },
+  { "error": true, "match": false, "name": "a", "pattern": "[^" },
+  { "error": true, "match": false, "name": "a", "pattern": "[^bc" },
+  { "error": true, "match": false, "name": "a", "pattern": "a[" },
+  { "error": true, "match": false, "name": "ab", "pattern": "a[" },
+  { "error": true, "match": false, "name": "x", "pattern": "a[" },
+  { "error": true, "match": false, "name": "x", "pattern": "a/b[" },
+  { "error": false, "match": true, "name": "xxx", "pattern": "*x" }
+]

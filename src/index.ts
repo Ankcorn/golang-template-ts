@@ -691,6 +691,7 @@ function parseFSNames<T extends Template>(
       "readFile" in fs && typeof fs.readFile === "function"
         ? fs.readFile(name)
         : (fs as Record<string, string>)[name];
+    if (typeof text !== "string") throw Error(`cannot read file: ${name}`);
     const base = posix.basename(name);
     (base === template.Name()
       ? template

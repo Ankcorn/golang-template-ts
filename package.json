@@ -18,6 +18,7 @@
     "typecheck": "tsc -p tsconfig.test.json",
     "test": "tsx --test test/*.test.ts",
     "test:upstream": "npm test",
+    "test:glob": "tsx scripts/glob-differential.ts",
     "test:differential": "tsx scripts/differential.ts",
     "test:go": "sh scripts/test-go.sh",
     "audit:upstream": "node scripts/audit-upstream.mjs",

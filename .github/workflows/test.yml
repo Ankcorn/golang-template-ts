@@ -18,4 +18,5 @@ jobs:
           go-version: '1.27.3'
           cache: false
       - run: npm run test:differential
+      - run: npm run test:glob
       - run: GOROOT="$(go env GOROOT)" npm run test:go
