@@ -32,6 +32,17 @@ console.log(t.Execute({ Count: 21 })); // 42
 
 Ordinary objects represent string-keyed maps. For Go distinctions that JavaScript does not have, use `int`, `uint`, `float`, `complex`, `pointer`, `typedNil`, `struct`, and `value`. `func(callback, argumentTypes, options)` supplies argument/return-signature metadata. Callbacks throw to represent Go errors; ordinary JavaScript callbacks are also accepted but have no Go signature metadata. Big integers retain 64-bit precision. See `test/fixtures.ts` for translations of the upstream Go fixture types and methods.
 
+## Filesystem behavior
+
+**Native filesystem behavior intentionally follows Node.js.** `ParseFiles` reads files with Node's `readFileSync`; `ParseGlob` expands patterns with Node's `globSync` using its default options, then sorts the matches. Where Node and Go differ in path handling, glob syntax, dotfile matching, or filesystem errors, the Node behavior applies. Emulating Go's native filesystem behavior is outside this library's compatibility target.
+
+`ParseFS` has a separate contract:
+
+* With an in-memory object, it uses slash-separated paths and Go-style glob rules: `*`, `?`, character classes such as `[ab]`, ranges such as `[a-z]`, negation such as `[^a]`, and backslash escapes. Wildcards match within one path component; `**` has the same meaning as `*`, and dotfiles are included. Matched directories cannot be parsed as template files.
+* With a custom `{ readFile, glob }` adapter, the adapter controls file access and glob expansion.
+
+These rules apply to both standalone functions and `Template` methods. This library does not implement the complete Go `io/fs` interface.
+
 ## Measure correctness
 
 ```sh
